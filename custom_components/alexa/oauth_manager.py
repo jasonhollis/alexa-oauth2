@@ -453,7 +453,8 @@ class OAuthManager:
 
                     # Handle error responses
                     if response.status != 200:
-                        return await self._handle_token_error(response, response_data)
+                        await self._handle_token_error(response, response_data)
+                        return  # Unreachable, but added for code clarity
 
                     # Parse and validate success response
                     token_response = TokenResponse.from_dict(response_data)
@@ -575,7 +576,8 @@ class OAuthManager:
 
                     # Handle error responses
                     if response.status != 200:
-                        return await self._handle_token_error(response, response_data)
+                        await self._handle_token_error(response, response_data)
+                        return  # Unreachable, but added for code clarity
 
                     # Parse and validate success response
                     token_response = TokenResponse.from_dict(response_data)
