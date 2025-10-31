@@ -7,19 +7,19 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import aiohttp
 import pytest
 
-from homeassistant.components.alexa.const import (
+from custom_components.alexa.const import (
     AMAZON_AUTH_URL,
     AMAZON_TOKEN_URL,
     REQUIRED_SCOPES,
 )
-from homeassistant.components.alexa.exceptions import (
+from custom_components.alexa.exceptions import (
     AlexaInvalidCodeError,
     AlexaInvalidGrantError,
     AlexaNetworkError,
     AlexaOAuthError,
     AlexaTimeoutError,
 )
-from homeassistant.components.alexa.oauth_manager import (
+from custom_components.alexa.oauth_manager import (
     OAuthManager,
     TokenResponse,
     _redact_token,
