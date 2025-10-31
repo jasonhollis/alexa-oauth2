@@ -7,7 +7,7 @@ from homeassistant.setup import async_setup_component
 
 
 @pytest.fixture
-def hass():
+def hass(tmp_path):
     """Fixture to provide a test instance of Home Assistant."""
     # This is a simplified fixture - in real HA tests, use pytest_homeassistant_custom_component
     import asyncio
@@ -16,12 +16,16 @@ def hass():
     # Get the current event loop
     loop = asyncio.get_event_loop()
 
-    hass = HomeAssistant()
+    # Create a temporary config directory
+    config_dir = tmp_path / "config"
+    config_dir.mkdir(exist_ok=True)
+
+    hass = HomeAssistant(config_dir=str(config_dir))
     hass.loop = loop
     # Pre-configure required attributes before spec checking
     hass.data = {}
     hass.config = type('Config', (), {})()
-    hass.config.path = lambda x: f"/config/{x}"
+    hass.config.path = lambda x: f"{config_dir}/{x}"
 
     yield hass
 
