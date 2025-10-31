@@ -1,0 +1,22 @@
+# Test dependencies for Alexa OAuth2 Integration
+# Install with: pip install -r requirements-test.txt
+
+# Core testing
+pytest==8.4.2
+pytest-cov==7.0.0
+pytest-asyncio==1.2.0
+
+# Home Assistant core (required for tests)
+homeassistant==2024.10.0
+
+# Dependencies for Home Assistant
+cryptography>=43.0.0
+pyyaml>=6.0.0
+numpy>=2.3.0
+
+# Dependency fixes for Home Assistant compatibility
+josepy<2
+
+# Code quality tools
+mypy>=1.5.0
+flake8>=6.0.0
