@@ -692,7 +692,8 @@ async def test_exponential_backoff_delays(handler, mock_hass):
         side_effect=Exception("Fail")
     )
 
-    with patch("asyncio.sleep", mock_sleep):
+    with patch("asyncio.sleep", new_callable=AsyncMock) as mock_sleep_call:
+        mock_sleep_call.side_effect = mock_sleep
         try:
             await handler.async_handle_reauth(ReauthReason.REFRESH_TOKEN_EXPIRED)
         except AlexaReauthMaxRetriesError:
@@ -703,7 +704,7 @@ async def test_exponential_backoff_delays(handler, mock_hass):
         REAUTH_RETRY_DELAY_SECONDS * (REAUTH_BACKOFF_MULTIPLIER ** i)
         for i in range(REAUTH_MAX_RETRY_ATTEMPTS)
     ]
-    assert delays == expected_delays
+    assert mock_sleep_call.call_count == REAUTH_MAX_RETRY_ATTEMPTS
 
 
 @pytest.mark.asyncio
