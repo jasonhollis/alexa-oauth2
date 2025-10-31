@@ -464,8 +464,10 @@ async def test_detect_correct_region_no_tokens(handler):
     """Test region detection with no tokens."""
     handler._token_manager._store.async_load = AsyncMock(return_value=None)
 
-    region = await handler._detect_correct_region()
-    assert region is None
+    # Mock async_get_clientsession to avoid needing a full hass instance
+    with patch("custom_components.alexa.advanced_reauth.async_get_clientsession"):
+        region = await handler._detect_correct_region()
+        assert region is None
 
 
 @pytest.mark.asyncio
