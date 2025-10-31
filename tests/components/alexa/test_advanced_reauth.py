@@ -71,6 +71,7 @@ from custom_components.alexa.token_manager import TokenManager
 def mock_hass():
     """Create mock Home Assistant instance."""
     hass = MagicMock(spec=HomeAssistant)
+    hass.data = {}  # Required for async_get_clientsession
     hass.config_entries = MagicMock()
     hass.config_entries.flow = MagicMock()
     hass.config_entries.flow.async_init = AsyncMock()

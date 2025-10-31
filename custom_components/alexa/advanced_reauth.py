@@ -162,6 +162,7 @@ class AdvancedReauthHandler:
         self.entry = entry
         self._token_manager = TokenManager(hass, entry)
         self._reauth_lock = asyncio.Lock()
+        self._reauth_in_progress = False  # Flag to track if reauth is already executing
 
     async def async_detect_reauth_needed(self) -> bool:
         """Proactively detect if reauth is needed.
@@ -554,21 +555,20 @@ class AdvancedReauthHandler:
                 f"Max reauth retries ({REAUTH_MAX_RETRY_ATTEMPTS}) exceeded"
             )
 
-        # Check if already locked BEFORE trying to acquire
-        # This helps us know if we're the first caller or a waiter
-        was_locked = self._reauth_lock.locked()
-
         # Track if we need to retry after releasing lock
         retry_needed = False
         caught_exception = None
 
         # Acquire lock - all concurrent callers will serialize here
         async with self._reauth_lock:
-            # Only the first caller (who found the lock unlocked) should execute
-            # Others should just wait and return success
-            if was_locked:
-                _LOGGER.debug("Reauth completed by another task, skipping execution")
+            # If reauth is already in progress/completed, just return success
+            # This handles concurrent calls - only the first one executes
+            if self._reauth_in_progress:
+                _LOGGER.debug("Reauth already in progress, returning success")
                 return ReauthResult(success=True, reason=reason)
+
+            # Mark that we're executing reauth
+            self._reauth_in_progress = True
 
             # We're the first caller - proceed with execution
             try:
@@ -618,6 +618,9 @@ class AdvancedReauthHandler:
 
         # Retry logic OUTSIDE the lock to prevent deadlock
         if retry_needed:
+            # Reset flag before retry so next attempt can try
+            self._reauth_in_progress = False
+
             # Exponential backoff
             delay = REAUTH_RETRY_DELAY_SECONDS * (
                 REAUTH_BACKOFF_MULTIPLIER ** retry_count
@@ -627,6 +630,9 @@ class AdvancedReauthHandler:
 
             # Recursive retry (lock is now released, safe to retry)
             return await self.async_handle_reauth(reason, retry_count + 1)
+
+        # On success, reset flag for future reauth attempts
+        self._reauth_in_progress = False
 
     async def _detect_correct_region(self) -> str | None:
         """Detect correct Amazon region by testing endpoints.
