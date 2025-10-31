@@ -84,6 +84,9 @@ async def config_entry(hass: HomeAssistant, mock_config_entry_data: dict[str, An
         source="user",
         entry_id="test_entry_123",
         unique_id=mock_config_entry_data[CONF_CLIENT_ID],
+        discovery_keys=None,
+        minor_version=1,
+        options={},
     )
 
     # Add to hass
@@ -258,6 +261,9 @@ async def test_multiple_entries_share_session_manager(
         source="user",
         entry_id="entry_1",
         unique_id="client_1",
+        discovery_keys=None,
+        minor_version=1,
+        options={},
     )
 
     entry2 = ConfigEntry(
@@ -268,6 +274,9 @@ async def test_multiple_entries_share_session_manager(
         source="user",
         entry_id="entry_2",
         unique_id="client_2",
+        discovery_keys=None,
+        minor_version=1,
+        options={},
     )
 
     hass.config_entries._entries = {
@@ -418,6 +427,9 @@ async def test_unload_non_last_entry_keeps_session_manager(
         source="user",
         entry_id="entry_1",
         unique_id="client_1",
+        discovery_keys=None,
+        minor_version=1,
+        options={},
     )
 
     entry2 = ConfigEntry(
@@ -428,6 +440,9 @@ async def test_unload_non_last_entry_keeps_session_manager(
         source="user",
         entry_id="entry_2",
         unique_id="client_2",
+        discovery_keys=None,
+        minor_version=1,
+        options={},
     )
 
     hass.config_entries._entries = {

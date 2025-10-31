@@ -85,11 +85,14 @@ def mock_entry():
     entry = MagicMock(spec=ConfigEntry)
     entry.entry_id = "test_entry_123"
     entry.domain = DOMAIN
+    # Ensure data is a proper dict attribute, not just a Mock
     entry.data = {
         CONF_CLIENT_ID: "amzn1.application-oa2-client.test123",
         CONF_CLIENT_SECRET: "test_secret_1234567890abcdef",
         "region": "na",
     }
+    # Configure the mock to return data attribute properly
+    entry.configure_mock(data=entry.data)
     return entry
 
 

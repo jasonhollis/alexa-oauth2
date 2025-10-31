@@ -289,13 +289,15 @@ async def test_exchange_code_success(
     mock_response.status = 200
     mock_response.json = AsyncMock(return_value=mock_token_response)
 
-    with patch(
-        "homeassistant.helpers.aiohttp_client.async_get_clientsession"
-    ) as mock_session:
-        mock_session.return_value.post.return_value.__aenter__.return_value = (
-            mock_response
-        )
+    # Create mock session with proper context manager support
+    mock_session = MagicMock()
+    mock_session.post.return_value.__aenter__.return_value = mock_response
+    mock_session.post.return_value.__aexit__ = AsyncMock(return_value=False)
 
+    with patch(
+        "custom_components.alexa.oauth_manager.async_get_clientsession",
+        return_value=mock_session
+    ):
         token = await oauth_manager.exchange_code(code, verifier, redirect_uri)
 
         assert token.access_token == "Atza|IwEBIExampleAccessToken"
@@ -319,13 +321,15 @@ async def test_exchange_code_invalid_code(oauth_manager, hass):
     mock_response.status = 400
     mock_response.json = AsyncMock(return_value=error_response)
 
-    with patch(
-        "homeassistant.helpers.aiohttp_client.async_get_clientsession"
-    ) as mock_session:
-        mock_session.return_value.post.return_value.__aenter__.return_value = (
-            mock_response
-        )
+    # Create mock session with proper context manager support
+    mock_session = MagicMock()
+    mock_session.post.return_value.__aenter__.return_value = mock_response
+    mock_session.post.return_value.__aexit__ = AsyncMock(return_value=False)
 
+    with patch(
+        "custom_components.alexa.oauth_manager.async_get_clientsession",
+        return_value=mock_session
+    ):
         with pytest.raises(AlexaInvalidCodeError, match="Invalid authorization code"):
             await oauth_manager.exchange_code(code, verifier, redirect_uri)
 
@@ -346,13 +350,15 @@ async def test_exchange_code_invalid_client(oauth_manager, hass):
     mock_response.status = 401
     mock_response.json = AsyncMock(return_value=error_response)
 
-    with patch(
-        "homeassistant.helpers.aiohttp_client.async_get_clientsession"
-    ) as mock_session:
-        mock_session.return_value.post.return_value.__aenter__.return_value = (
-            mock_response
-        )
+    # Create mock session with proper context manager support
+    mock_session = MagicMock()
+    mock_session.post.return_value.__aenter__.return_value = mock_response
+    mock_session.post.return_value.__aexit__ = AsyncMock(return_value=False)
 
+    with patch(
+        "custom_components.alexa.oauth_manager.async_get_clientsession",
+        return_value=mock_session
+    ):
         with pytest.raises(AlexaOAuthError, match="Invalid client credentials"):
             await oauth_manager.exchange_code(code, verifier, redirect_uri)
 
@@ -364,14 +370,14 @@ async def test_exchange_code_timeout(oauth_manager, hass):
     verifier = "test_verifier_12345678901234567890123456789"
     redirect_uri = "https://my.home-assistant.io/redirect/oauth"
 
-    with patch(
-        "homeassistant.helpers.aiohttp_client.async_get_clientsession"
-    ) as mock_session:
-        # Simulate timeout
-        mock_session.return_value.post.return_value.__aenter__.side_effect = (
-            aiohttp.ServerTimeoutError()
-        )
+    # Create mock session that raises timeout
+    mock_session = MagicMock()
+    mock_session.post.return_value.__aenter__.side_effect = aiohttp.ServerTimeoutError()
 
+    with patch(
+        "custom_components.alexa.oauth_manager.async_get_clientsession",
+        return_value=mock_session
+    ):
         with pytest.raises(AlexaNetworkError):
             await oauth_manager.exchange_code(code, verifier, redirect_uri)
 
@@ -383,14 +389,14 @@ async def test_exchange_code_network_error(oauth_manager, hass):
     verifier = "test_verifier_12345678901234567890123456789"
     redirect_uri = "https://my.home-assistant.io/redirect/oauth"
 
-    with patch(
-        "homeassistant.helpers.aiohttp_client.async_get_clientsession"
-    ) as mock_session:
-        # Simulate network error
-        mock_session.return_value.post.return_value.__aenter__.side_effect = (
-            aiohttp.ClientError("Network unreachable")
-        )
+    # Create mock session that raises network error
+    mock_session = MagicMock()
+    mock_session.post.return_value.__aenter__.side_effect = aiohttp.ClientError("Network unreachable")
 
+    with patch(
+        "custom_components.alexa.oauth_manager.async_get_clientsession",
+        return_value=mock_session
+    ):
         with pytest.raises(AlexaNetworkError, match="Network error"):
             await oauth_manager.exchange_code(code, verifier, redirect_uri)
 
@@ -433,13 +439,15 @@ async def test_refresh_access_token_success(
     mock_response.status = 200
     mock_response.json = AsyncMock(return_value=mock_token_response)
 
-    with patch(
-        "homeassistant.helpers.aiohttp_client.async_get_clientsession"
-    ) as mock_session:
-        mock_session.return_value.post.return_value.__aenter__.return_value = (
-            mock_response
-        )
+    # Create mock session with proper context manager support
+    mock_session = MagicMock()
+    mock_session.post.return_value.__aenter__.return_value = mock_response
+    mock_session.post.return_value.__aexit__ = AsyncMock(return_value=False)
 
+    with patch(
+        "custom_components.alexa.oauth_manager.async_get_clientsession",
+        return_value=mock_session
+    ):
         token = await oauth_manager.refresh_access_token(refresh_token)
 
         assert token.access_token == "Atza|IwEBIExampleAccessToken"
@@ -461,13 +469,15 @@ async def test_refresh_access_token_invalid_grant(oauth_manager, hass):
     mock_response.status = 400
     mock_response.json = AsyncMock(return_value=error_response)
 
-    with patch(
-        "homeassistant.helpers.aiohttp_client.async_get_clientsession"
-    ) as mock_session:
-        mock_session.return_value.post.return_value.__aenter__.return_value = (
-            mock_response
-        )
+    # Create mock session with proper context manager support
+    mock_session = MagicMock()
+    mock_session.post.return_value.__aenter__.return_value = mock_response
+    mock_session.post.return_value.__aexit__ = AsyncMock(return_value=False)
 
+    with patch(
+        "custom_components.alexa.oauth_manager.async_get_clientsession",
+        return_value=mock_session
+    ):
         with pytest.raises(AlexaInvalidGrantError, match="Invalid grant"):
             await oauth_manager.refresh_access_token(refresh_token)
 
