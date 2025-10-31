@@ -1,0 +1,27 @@
+# This file helps identify the primary maintainers of the repository.
+# GitHub will request review from these owners for pull requests that modify code they own.
+
+# All files
+* @jasonhollis
+
+# OAuth2 and authentication
+custom_components/alexa/oauth_manager.py @jasonhollis
+custom_components/alexa/token_manager.py @jasonhollis
+custom_components/alexa/config_flow.py @jasonhollis
+
+# Session and token management
+custom_components/alexa/session_manager.py @jasonhollis
+custom_components/alexa/advanced_reauth.py @jasonhollis
+
+# YAML migration
+custom_components/alexa/yaml_migration.py @jasonhollis
+custom_components/alexa/migration_config_flow.py @jasonhollis
+
+# Tests
+tests/ @jasonhollis
+
+# Configuration
+hacs.json @jasonhollis
+manifest.json @jasonhollis
+README.md @jasonhollis
+LICENSE @jasonhollis
