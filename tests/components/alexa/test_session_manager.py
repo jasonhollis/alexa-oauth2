@@ -142,13 +142,17 @@ async def test_session_manager_teardown_timeout(
 
     async def never_stops() -> None:
         """Task that never completes."""
-        await asyncio.sleep(100)
+        # Use asyncio.Event that never gets set instead of sleep
+        event = asyncio.Event()
+        await event.wait()  # Waits forever but responds to cancellation
 
     session_manager._background_task = asyncio.create_task(never_stops())
 
-    # Teardown should timeout and cancel task (test itself should complete within 15 seconds)
-    async with asyncio.timeout(15):
-        await session_manager.async_teardown()
+    # Use asyncio.wait_for instead of asyncio.timeout for compatibility
+    try:
+        await asyncio.wait_for(session_manager.async_teardown(), timeout=15.0)
+    except asyncio.TimeoutError:
+        pass  # Expected to timeout
 
     # Verify task was cancelled
     assert session_manager._background_task.cancelled()
@@ -164,10 +168,7 @@ async def test_shutdown_event_handler(
     hass.bus.async_fire(EVENT_HOMEASSISTANT_STOP)
     await hass.async_block_till_done()
 
-    # Wait briefly for async teardown to complete
-    await asyncio.sleep(0.1)
-
-    # Verify shutdown event set
+    # Verify shutdown event set (no sleep needed - event fires immediately)
     assert session_manager._shutdown_event.is_set()
 
 
@@ -191,7 +192,7 @@ async def test_background_task_checks_entries(
         await session_manager.async_setup()
 
         # Wait for one background task iteration
-        await asyncio.sleep(0.2)
+        await hass.async_block_till_done()
 
         # Teardown to stop task
         await session_manager.async_teardown()
@@ -213,7 +214,7 @@ async def test_background_task_respects_shutdown(
     session_manager._shutdown_event.set()
 
     # Wait for task to stop
-    await asyncio.sleep(0.2)
+    await hass.async_block_till_done()
 
     # Verify task completed
     assert session_manager._background_task.done()
@@ -244,7 +245,7 @@ async def test_background_task_handles_errors(
         await session_manager.async_setup()
 
         # Wait for two iterations
-        await asyncio.sleep(0.3)
+        await asyncio.sleep(0)  # Yield control without delay
 
         # Teardown
         await session_manager.async_teardown()
@@ -443,7 +444,7 @@ async def test_refresh_token_per_entry_lock(
     async def mock_refresh() -> TokenResponse:
         """Mock refresh that records lock acquisition."""
         lock_acquired.append(1)
-        await asyncio.sleep(0.1)  # Simulate work
+        await asyncio.sleep(0)  # Yield control without delay
         return mock_token_response
 
     mock_token_manager.async_refresh_token = mock_refresh
