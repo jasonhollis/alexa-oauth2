@@ -251,16 +251,8 @@ class AdvancedReauthHandler:
                     _LOGGER.info("Detected reason: Refresh token expired")
                     return ReauthReason.REFRESH_TOKEN_EXPIRED
 
-            # Check 2: Incomplete token data (missing required fields)
-            # If token has only refresh_token but missing access_token, it's expired
-            if token_data:
-                has_refresh = "refresh_token" in token_data
-                has_access = "access_token" in token_data
-                if has_refresh and not has_access:
-                    _LOGGER.info("Detected reason: Incomplete token data (refresh only)")
-                    return ReauthReason.REFRESH_TOKEN_EXPIRED
-
-            # Check 3: Try token refresh and analyze error
+            # Check 2: Try token refresh and analyze error
+            # This must happen before other checks to detect specific failure reasons
             try:
                 await self._token_manager.async_refresh_token()
             except Exception as err:
@@ -278,12 +270,27 @@ class AdvancedReauthHandler:
                     _LOGGER.info("Detected reason: Regional endpoint change")
                     return ReauthReason.REGIONAL_CHANGE
 
-            # Check 4: Scope validation
-            if token_data:
+                # If refresh failed but no specific error detected, might be expired
+                # Continue to other checks to determine specific reason
+
+            # Check 3: Scope validation
+            # Only check scope if it exists in token_data (otherwise it's incomplete data)
+            if token_data and "scope" in token_data:
                 current_scope = token_data.get("scope", "")
                 if REQUIRED_SCOPES not in current_scope:
                     _LOGGER.info("Detected reason: Scope changed")
                     return ReauthReason.SCOPE_CHANGED
+
+            # Check 4: Incomplete token data (missing required fields)
+            # Check this after specific error detection
+            if token_data:
+                has_refresh = "refresh_token" in token_data
+                has_access = "access_token" in token_data
+                has_scope = "scope" in token_data
+                # If missing critical fields, treat as expired
+                if has_refresh and (not has_access or not has_scope):
+                    _LOGGER.info("Detected reason: Incomplete token data")
+                    return ReauthReason.REFRESH_TOKEN_EXPIRED
 
             # Default: assume refresh token expired
             _LOGGER.info("Detected reason: Refresh token expired (default)")

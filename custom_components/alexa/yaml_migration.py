@@ -438,10 +438,11 @@ class YAMLMigrator:
             device_registry = await self.hass.helpers.device_registry.async_get_registry()
 
             # Find devices for Alexa domain
+            # device.identifiers is a set of tuples like {(DOMAIN, device_id)}
             devices = [
                 device
                 for device in device_registry.devices.values()
-                if DOMAIN in device.identifiers
+                if any(identifier[0] == DOMAIN for identifier in device.identifiers if isinstance(identifier, tuple))
             ]
 
             preserved_count = 0
