@@ -251,7 +251,16 @@ class AdvancedReauthHandler:
                     _LOGGER.info("Detected reason: Refresh token expired")
                     return ReauthReason.REFRESH_TOKEN_EXPIRED
 
-            # Check 2: Try token refresh and analyze error
+            # Check 2: Incomplete token data (missing required fields)
+            # If token has only refresh_token but missing access_token, it's expired
+            if token_data:
+                has_refresh = "refresh_token" in token_data
+                has_access = "access_token" in token_data
+                if has_refresh and not has_access:
+                    _LOGGER.info("Detected reason: Incomplete token data (refresh only)")
+                    return ReauthReason.REFRESH_TOKEN_EXPIRED
+
+            # Check 3: Try token refresh and analyze error
             try:
                 await self._token_manager.async_refresh_token()
             except Exception as err:
@@ -269,7 +278,7 @@ class AdvancedReauthHandler:
                     _LOGGER.info("Detected reason: Regional endpoint change")
                     return ReauthReason.REGIONAL_CHANGE
 
-            # Check 3: Scope validation
+            # Check 4: Scope validation
             if token_data:
                 current_scope = token_data.get("scope", "")
                 if REQUIRED_SCOPES not in current_scope:
@@ -538,17 +547,23 @@ class AdvancedReauthHandler:
                 f"Max reauth retries ({REAUTH_MAX_RETRY_ATTEMPTS}) exceeded"
             )
 
-        if self._reauth_lock.locked():
-            _LOGGER.debug("Reauth already in progress, waiting...")
-            async with self._reauth_lock:
-                pass  # Wait for current reauth to complete
-            return ReauthResult(success=True, reason=reason)
+        # Check if already locked BEFORE trying to acquire
+        # This helps us know if we're the first caller or a waiter
+        was_locked = self._reauth_lock.locked()
 
         # Track if we need to retry after releasing lock
         retry_needed = False
         caught_exception = None
 
+        # Acquire lock - all concurrent callers will serialize here
         async with self._reauth_lock:
+            # Only the first caller (who found the lock unlocked) should execute
+            # Others should just wait and return success
+            if was_locked:
+                _LOGGER.debug("Reauth completed by another task, skipping execution")
+                return ReauthResult(success=True, reason=reason)
+
+            # We're the first caller - proceed with execution
             try:
                 _LOGGER.info(
                     "Handling reauth: reason=%s, retry=%d",

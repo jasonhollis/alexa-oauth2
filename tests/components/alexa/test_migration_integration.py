@@ -51,7 +51,10 @@ from custom_components.alexa.yaml_migration import YAMLConfig, YAMLMigrator
 def mock_hass():
     """Create comprehensive mock Home Assistant instance."""
     hass = MagicMock(spec=HomeAssistant)
+    # Pre-create nested attributes before setting them (Python 3.12 spec strictness)
+    hass.config = MagicMock()
     hass.config.path = MagicMock(return_value="/config/configuration.yaml")
+    hass.data = {}
     hass.config_entries = MagicMock()
     hass.config_entries.async_get_entry = MagicMock()
     hass.config_entries.async_remove = AsyncMock()
