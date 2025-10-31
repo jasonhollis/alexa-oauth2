@@ -24,7 +24,7 @@ import logging
 from datetime import datetime, timezone
 from typing import Final
 
-from homeassistant.config_entries import ConfigEntry, ConfigEntries
+from homeassistant.config_entries import ConfigEntry, ConfigEntries, ConfigEntryState
 from homeassistant.const import EVENT_HOMEASSISTANT_STOP
 from homeassistant.core import HomeAssistant, Event
 
@@ -236,7 +236,7 @@ class SessionManager:
         entries = []
         for entry in self._config_entries.async_entries(DOMAIN):
             # Only include loaded entries (skip disabled or unloaded)
-            if entry.state == ConfigEntry.State.LOADED:
+            if entry.state == ConfigEntryState.LOADED:
                 entries.append(entry)
 
         return entries

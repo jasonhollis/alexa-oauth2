@@ -232,6 +232,8 @@ def test_validate_state_constant_time(oauth_manager):
 @pytest.mark.asyncio
 async def test_get_authorization_url(oauth_manager):
     """Test authorization URL generation."""
+    from urllib.parse import unquote
+
     flow_id = "test_flow_123"
     redirect_uri = "https://my.home-assistant.io/redirect/oauth"
 
@@ -242,11 +244,12 @@ async def test_get_authorization_url(oauth_manager):
     # Verify URL starts with correct endpoint
     assert auth_url.startswith(AMAZON_AUTH_URL)
 
-    # Verify all required parameters present
+    # Verify all required parameters present (URL may be encoded)
     assert f"client_id={oauth_manager.client_id}" in auth_url
     assert "response_type=code" in auth_url
-    assert f"scope={REQUIRED_SCOPES}" in auth_url
-    assert f"redirect_uri={redirect_uri}" in auth_url
+    # Scope may be URL-encoded, so check decoded version
+    assert REQUIRED_SCOPES in unquote(auth_url)
+    assert redirect_uri in unquote(auth_url)
     assert f"state={state}" in auth_url
     assert "code_challenge=" in auth_url
     assert "code_challenge_method=S256" in auth_url

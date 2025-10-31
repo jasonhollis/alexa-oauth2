@@ -1,6 +1,7 @@
 """Fixtures for Alexa integration tests."""
 
 import pytest
+from unittest.mock import Mock
 
 from homeassistant.core import HomeAssistant
 from homeassistant.setup import async_setup_component
@@ -21,7 +22,17 @@ async def hass(tmp_path):
     # Pre-configure required attributes before spec checking
     hass.data = {}
     hass.config = type('Config', (), {})()
-    hass.config.path = lambda x: f"{config_dir}/{x}"
+    hass.config.config_dir = str(config_dir)
+    hass.config.path = lambda *args: f"{config_dir}/{args[0] if args else ''}"
+
+    # Initialize config_entries with mock manager
+    mock_config_entries = Mock()
+    mock_config_entries._entries = {}
+    mock_config_entries.async_entries = lambda domain=None: (
+        [e for e in mock_config_entries._entries.values() if domain is None or e.domain == domain]
+    )
+    mock_config_entries.async_get_entry = lambda entry_id: mock_config_entries._entries.get(entry_id)
+    hass.config_entries = mock_config_entries
 
     yield hass
 

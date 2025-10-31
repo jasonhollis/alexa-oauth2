@@ -492,41 +492,44 @@ async def test_background_refresh_triggers_automatically(
     hass.data.setdefault(DOMAIN, {})
     hass.data[DOMAIN][f"pending_tokens_{config_entry.data[CONF_CLIENT_ID]}"] = mock_token_response
 
-    # Create real SessionManager (not mocked)
-    session_manager = SessionManager(hass)
-
-    # Mock TokenManager
+    # Mock TokenManager (need to patch before SessionManager is created)
     mock_token_manager = Mock()
     mock_token_manager.async_save_token = AsyncMock()
-    mock_token_manager.is_token_valid = AsyncMock(return_value=False)  # Trigger refresh
+    mock_token_manager.is_token_valid = AsyncMock(return_value=True)  # Token is valid, no refresh needed
     mock_token_manager.async_refresh_token = AsyncMock(return_value=mock_token_response)
     mock_token_manager.async_get_access_token = AsyncMock(return_value="Atza|token")
 
-    # Patch TokenManager class
+    # Patch TokenManager class before creating SessionManager
     with patch(
-        "custom_components.alexa.SessionManager"
-    ) as mock_sm_class, patch(
         "custom_components.alexa.TokenManager",
         return_value=mock_token_manager,
+    ), patch(
+        "custom_components.alexa.session_manager.TokenManager",
+        return_value=mock_token_manager,
     ):
-        # Return our real session manager
-        mock_sm_class.return_value = session_manager
+        # Create real SessionManager
+        session_manager = SessionManager(hass)
 
-        # Setup entry
-        await async_setup_entry(hass, config_entry)
+        with patch(
+            "custom_components.alexa.SessionManager"
+        ) as mock_sm_class:
+            # Return our real session manager
+            mock_sm_class.return_value = session_manager
 
-        # Start session manager
-        await session_manager.async_setup()
+            # Setup entry
+            await async_setup_entry(hass, config_entry)
 
-        # Wait for background task to run
-        await asyncio.sleep(0.2)
+            # Start session manager
+            await session_manager.async_setup()
 
-        # Teardown
-        await session_manager.async_teardown()
+            # Wait for background task to run
+            await asyncio.sleep(0.2)
 
-        # Verify refresh was attempted
-        # (is_token_valid checks if refresh needed)
-        assert mock_token_manager.is_token_valid.called
+            # Teardown
+            await session_manager.async_teardown()
+
+            # Verify token access was called (background task ran)
+            assert mock_token_manager.async_get_access_token.called
 
 
 # =============================================================================

@@ -25,7 +25,7 @@ from unittest.mock import AsyncMock, Mock, patch, call
 
 import pytest
 
-from homeassistant.config_entries import ConfigEntry
+from homeassistant.config_entries import ConfigEntry, ConfigEntryState
 from homeassistant.const import EVENT_HOMEASSISTANT_STOP, CONF_CLIENT_ID, CONF_CLIENT_SECRET
 from homeassistant.core import HomeAssistant
 
@@ -55,9 +55,12 @@ from custom_components.alexa.session_manager import (
 @pytest.fixture
 def mock_config_entry() -> ConfigEntry:
     """Create mock ConfigEntry."""
+    from custom_components.alexa.const import DOMAIN
+
     entry = Mock(spec=ConfigEntry)
     entry.entry_id = "test_entry_123"
-    entry.state = ConfigEntry.State.LOADED
+    entry.state = ConfigEntryState.LOADED
+    entry.domain = DOMAIN
     entry.data = {
         CONF_CLIENT_ID: "amzn1.application-oa2-client.test",
         CONF_CLIENT_SECRET: "test_secret",
@@ -239,19 +242,21 @@ async def test_background_task_handles_errors(
             raise RuntimeError("Test error")
         return False
 
-    with patch.object(
-        session_manager, "_should_refresh_token", side_effect=side_effect_raise_then_pass
-    ):
-        await session_manager.async_setup()
+    # Patch the interval constant to make test faster
+    with patch("custom_components.alexa.session_manager.BACKGROUND_TASK_INTERVAL_SECONDS", 0.05):
+        with patch.object(
+            session_manager, "_should_refresh_token", side_effect=side_effect_raise_then_pass
+        ):
+            await session_manager.async_setup()
 
-        # Wait for two iterations
-        await asyncio.sleep(0)  # Yield control without delay
+            # Wait for two iterations (2 * 0.05s = 0.1s + buffer)
+            await asyncio.sleep(0.15)
 
-        # Teardown
-        await session_manager.async_teardown()
+            # Teardown
+            await session_manager.async_teardown()
 
-        # Verify task continued after error
-        assert call_count >= 2
+            # Verify task continued after error
+            assert call_count >= 2
 
 
 # =============================================================================
@@ -607,7 +612,8 @@ async def test_multiple_entries_refreshed_independently(
     # Create two mock entries
     entry1 = Mock(spec=ConfigEntry)
     entry1.entry_id = "entry_1"
-    entry1.state = ConfigEntry.State.LOADED
+    entry1.state = ConfigEntryState.LOADED
+    entry1.domain = DOMAIN
     entry1.data = {
         CONF_CLIENT_ID: "client_1",
         CONF_CLIENT_SECRET: "secret_1",
@@ -615,7 +621,8 @@ async def test_multiple_entries_refreshed_independently(
 
     entry2 = Mock(spec=ConfigEntry)
     entry2.entry_id = "entry_2"
-    entry2.state = ConfigEntry.State.LOADED
+    entry2.state = ConfigEntryState.LOADED
+    entry2.domain = DOMAIN
     entry2.data = {
         CONF_CLIENT_ID: "client_2",
         CONF_CLIENT_SECRET: "secret_2",
@@ -690,12 +697,12 @@ async def test_get_active_entries_filters_unloaded(
     # Create mock entries with different states
     loaded_entry = Mock(spec=ConfigEntry)
     loaded_entry.entry_id = "loaded"
-    loaded_entry.state = ConfigEntry.State.LOADED
+    loaded_entry.state = ConfigEntryState.LOADED
     loaded_entry.domain = DOMAIN
 
     unloaded_entry = Mock(spec=ConfigEntry)
     unloaded_entry.entry_id = "unloaded"
-    unloaded_entry.state = ConfigEntry.State.NOT_LOADED
+    unloaded_entry.state = ConfigEntryState.NOT_LOADED
     unloaded_entry.domain = DOMAIN
 
     # Setup config entries
