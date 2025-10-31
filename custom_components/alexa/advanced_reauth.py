@@ -544,6 +544,10 @@ class AdvancedReauthHandler:
                 pass  # Wait for current reauth to complete
             return ReauthResult(success=True, reason=reason)
 
+        # Track if we need to retry after releasing lock
+        retry_needed = False
+        caught_exception = None
+
         async with self._reauth_lock:
             try:
                 _LOGGER.info(
@@ -586,16 +590,21 @@ class AdvancedReauthHandler:
 
             except Exception as err:
                 _LOGGER.error("Reauth failed (retry %d): %s", retry_count, err)
+                # Mark for retry OUTSIDE the lock to prevent deadlock
+                retry_needed = True
+                caught_exception = err
 
-                # Exponential backoff
-                delay = REAUTH_RETRY_DELAY_SECONDS * (
-                    REAUTH_BACKOFF_MULTIPLIER ** retry_count
-                )
-                _LOGGER.info("Retrying reauth in %d seconds...", delay)
-                await asyncio.sleep(delay)
+        # Retry logic OUTSIDE the lock to prevent deadlock
+        if retry_needed:
+            # Exponential backoff
+            delay = REAUTH_RETRY_DELAY_SECONDS * (
+                REAUTH_BACKOFF_MULTIPLIER ** retry_count
+            )
+            _LOGGER.info("Retrying reauth in %d seconds...", delay)
+            await asyncio.sleep(delay)
 
-                # Recursive retry
-                return await self.async_handle_reauth(reason, retry_count + 1)
+            # Recursive retry (lock is now released, safe to retry)
+            return await self.async_handle_reauth(reason, retry_count + 1)
 
     async def _detect_correct_region(self) -> str | None:
         """Detect correct Amazon region by testing endpoints.
