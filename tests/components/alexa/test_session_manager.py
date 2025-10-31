@@ -460,8 +460,8 @@ async def test_refresh_token_per_entry_lock(
         session_manager._refresh_token_for_entry(mock_config_entry.entry_id)
     )
 
-    # Wait for both to complete
-    await asyncio.gather(task1, task2)
+    # Wait for both to complete (with timeout to prevent hangs)
+    await asyncio.wait_for(asyncio.gather(task1, task2), timeout=10.0)
 
     # Due to single-flight pattern, only one refresh should execute
     # (Second task skipped because entry already in _refreshing_entries)

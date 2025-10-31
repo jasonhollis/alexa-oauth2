@@ -690,7 +690,8 @@ async def test_concurrent_detection_calls(migrator, mock_hass, sample_yaml_conte
                 tasks = [
                     migrator.async_detect_yaml_config() for _ in range(5)
                 ]
-                results = await asyncio.gather(*tasks)
+                # Add timeout to prevent hangs
+                results = await asyncio.wait_for(asyncio.gather(*tasks), timeout=10.0)
 
     # All should succeed
     assert all(r is not None for r in results)

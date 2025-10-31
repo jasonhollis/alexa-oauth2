@@ -632,8 +632,8 @@ async def test_concurrent_token_access_is_thread_safe(
         for _ in range(5)
     ]
 
-    # Wait for all to complete
-    tokens = await asyncio.gather(*tasks)
+    # Wait for all to complete (with timeout to prevent hangs)
+    tokens = await asyncio.wait_for(asyncio.gather(*tasks), timeout=10.0)
 
     # All should succeed with same token
     assert all(t == "Atza|token" for t in tokens)

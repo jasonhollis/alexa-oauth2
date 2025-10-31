@@ -508,7 +508,8 @@ async def test_concurrent_reauth_attempts(mock_hass):
         handler.async_handle_reauth(ReauthReason.REFRESH_TOKEN_EXPIRED)
         for _ in range(3)
     ]
-    results = await asyncio.gather(*tasks)
+    # Add timeout to prevent hangs
+    results = await asyncio.wait_for(asyncio.gather(*tasks), timeout=10.0)
 
     # All should succeed (lock serializes them)
     assert all(r.success for r in results)
