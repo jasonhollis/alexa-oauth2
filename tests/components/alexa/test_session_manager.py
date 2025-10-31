@@ -130,6 +130,7 @@ async def test_session_manager_teardown(hass: HomeAssistant, session_manager: Se
     assert len(session_manager._refreshing_entries) == 0
 
 
+@pytest.mark.asyncio
 async def test_session_manager_teardown_timeout(
     hass: HomeAssistant, session_manager: SessionManager
 ) -> None:
@@ -145,8 +146,9 @@ async def test_session_manager_teardown_timeout(
 
     session_manager._background_task = asyncio.create_task(never_stops())
 
-    # Teardown should timeout and cancel task
-    await session_manager.async_teardown()
+    # Teardown should timeout and cancel task (test itself should complete within 15 seconds)
+    async with asyncio.timeout(15):
+        await session_manager.async_teardown()
 
     # Verify task was cancelled
     assert session_manager._background_task.cancelled()
