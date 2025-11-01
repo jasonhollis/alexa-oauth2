@@ -67,7 +67,7 @@ class TokenManager:
             "refresh_token": "Atzr|...",
             "token_type": "Bearer",
             "expires_at": 1234567890.0,
-            "scope": "alexa::skills:account_linking"
+            "scope": "smart_home"
         }
 
     Example:
@@ -249,7 +249,7 @@ class TokenManager:
                 "refresh_token": "Atzr|...",
                 "token_type": "Bearer",
                 "expires_at": 1234567890.0,  # Unix timestamp
-                "scope": "alexa::skills:account_linking"
+                "scope": "smart_home"
             }
 
         Example:
