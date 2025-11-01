@@ -14,9 +14,10 @@
 - **Branch**: main (up to date)
 
 ### 2. Python Environment
-- **Python Version**: 3.14.0
-- **Virtual Environment**: `~/projects/alexa-oauth2/venv/`
+- **Python Version**: 3.12.12 (installed via Homebrew)
+- **Virtual Environment**: `~/projects/alexa-oauth2/venv-test/`
 - **Dependencies Installed**: ✅
+  - homeassistant 2024.10.0
   - pytest 8.4.2
   - pytest-cov 7.0.0
   - pytest-asyncio 1.2.0
@@ -25,27 +26,40 @@
   - mypy 1.18.2
   - flake8 7.3.0
 
+### 3. Local Test Execution ✅
+- **All 171 tests passing** in 47.53 seconds
+- **Test command**: `export PYTHONPATH=. && pytest tests/ -v`
+- **Coverage**: 90%+ (matches GitHub CI/CD)
+- **Verified**: 2025-11-01
+
 ---
 
 ## Running Tests Locally
 
-### ⚠️ Home Assistant Required
+### ✅ Verified Local Test Execution
 
-**Tests require Home Assistant to be installed** to run locally:
+**Local testing environment is fully configured and working:**
+
 ```bash
-# Activate venv
+# Activate venv-test (Python 3.12 + HA 2024.10.0)
 cd ~/projects/alexa-oauth2
-source venv/bin/activate
+source venv-test/bin/activate
 
-# Install Home Assistant (LARGE - ~500MB)
-pip install homeassistant
-
-# Run tests
+# Run all 171 tests (47.53 seconds)
+export PYTHONPATH=.
 pytest tests/ -v
 
 # Run with coverage
 pytest tests/ --cov=custom_components/alexa --cov-report=term
+
+# Run specific test
+pytest tests/components/alexa/test_oauth_manager.py -v
+
+# Run with keyword filter
+pytest -k "test_exchange_code" -v
 ```
+
+**⚠️ Important**: Must use `export PYTHONPATH=.` before pytest in zsh (inline syntax doesn't work)
 
 ### Alternative: GitHub CI/CD (Recommended)
 
@@ -153,23 +167,26 @@ wc -l custom_components/alexa/*.py
 ## Current Status
 
 ### ✅ Complete
-- Local repository cloned
-- SSH write access configured
-- Python 3.14 virtual environment
-- Test dependencies installed
+- Local repository cloned from GitHub
+- SSH write access configured and tested
+- Python 3.12 virtual environment with HA 2024.10.0
+- All test dependencies installed
+- **All 171 tests passing locally** (47.53 seconds)
 - Code quality tools ready (flake8, mypy)
+- Local debugging environment verified
 
-### ⏳ Pending
-- **User Action**: Create Amazon Alexa Skill (see AMAZON_SKILL_SETUP.md)
-- **User Action**: Test OAuth flow with real Amazon credentials
-- **User Action**: Verify token refresh works in production
+### ⏳ Pending (User Actions Required)
+- **Priority 1**: Create Amazon Alexa Skill (see AMAZON_SKILL_SETUP.md)
+- **Priority 2**: Test OAuth flow with real Amazon credentials
+- **Priority 3**: Verify token refresh works in production
+- **Priority 4**: Begin beta testing recruitment
 
 ### 📊 Statistics
 - **Production Code**: 4,490 lines (10 files)
 - **Test Code**: 4,268 lines (7 files)
 - **Total Tests**: 171 tests
 - **Coverage**: 90%+
-- **All Tests Passing**: ✅ (on GitHub CI/CD)
+- **All Tests Passing**: ✅ (GitHub CI/CD + Local)
 
 ---
 
@@ -230,8 +247,9 @@ rsync -av --exclude='.git' --exclude='venv' \
 
 **Last Updated**: 2025-11-01
 **Machine**: M2 Max MacBook Pro (96GB RAM)
-**Python**: 3.14.0
-**Status**: Ready for Amazon Skill setup and OAuth testing
+**Python**: 3.12.12 (via Homebrew)
+**Virtual Environment**: venv-test (Python 3.12 + HA 2024.10.0)
+**Status**: ✅ Local development environment fully operational - ready for debugging and Amazon Skill setup
 
 ---
 

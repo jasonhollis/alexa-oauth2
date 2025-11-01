@@ -147,3 +147,5 @@ www/
 *.db
 .env.local
 .env.*.local
+CREDENTIALS.txt
+venv-test/
