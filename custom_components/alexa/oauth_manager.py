@@ -309,8 +309,9 @@ class OAuthManager:
             - code_challenge_method: "S256" (SHA-256)
 
         Example:
+            >>> redirect_uri = f"{hass.config.external_url}/auth/external/callback"
             >>> url, verifier, state = await oauth.get_authorization_url(
-            ...     "flow_123", "https://my.home-assistant.io/redirect/alexa"
+            ...     "flow_123", redirect_uri
             ... )
             >>> # Store verifier and state in flow context
             >>> # Redirect user to url

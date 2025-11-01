@@ -28,7 +28,7 @@ Example Config Entry:
         "data": {
             "client_id": "amzn1.application-oa2-client.xxx",
             "client_secret": "xxx",
-            "redirect_uri": "https://my.home-assistant.io/redirect/alexa"
+            "redirect_uri": "https://your-ha-instance.com/auth/external/callback"
         }
     }
 """

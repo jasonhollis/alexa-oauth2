@@ -42,8 +42,10 @@ from .token_manager import TokenManager
 
 _LOGGER = logging.getLogger(__name__)
 
-# Home Assistant OAuth redirect URI (Alexa-specific endpoint)
-HA_OAUTH_REDIRECT_URI = "https://my.home-assistant.io/redirect/alexa"
+# OAuth redirect URI is dynamically determined from hass.config.external_url
+# Format: {external_url}/auth/external/callback
+# This allows the integration to work with any Home Assistant external URL
+# instead of requiring the my.home-assistant.io service
 
 
 class AlexaFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
@@ -91,6 +93,29 @@ class AlexaFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         self._oauth_state: str | None = None
         self._reauth_entry: config_entries.ConfigEntry | None = None
         self._pending_tokens: Any = None
+
+    def _get_redirect_uri(self) -> str:
+        """Get OAuth redirect URI from Home Assistant external URL.
+
+        Returns:
+            OAuth redirect URI using Home Assistant's configured external URL
+            Format: {external_url}/auth/external/callback
+
+        Raises:
+            ValueError: If external_url is not configured
+
+        Notes:
+            Uses Home Assistant's standard OAuth callback endpoint instead of
+            my.home-assistant.io, allowing integration to work without the
+            My Home Assistant service.
+        """
+        if not self.hass.config.external_url:
+            raise ValueError(
+                "Home Assistant external_url not configured. "
+                "Please configure external_url in configuration.yaml or "
+                "Settings -> System -> Network -> External URL"
+            )
+        return f"{self.hass.config.external_url}/auth/external/callback"
 
     # =========================================================================
     # User Flow (Initial Setup)
@@ -161,9 +186,10 @@ class AlexaFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                     )
 
                     # Generate authorization URL with PKCE
+                    redirect_uri = self._get_redirect_uri()
                     auth_url, code_verifier, state = await self._oauth_manager.get_authorization_url(
                         self.flow_id,
-                        HA_OAUTH_REDIRECT_URI,
+                        redirect_uri,
                     )
 
                     # Store OAuth state for callback validation
@@ -258,7 +284,7 @@ class AlexaFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
 
         Example:
             >>> # Amazon redirects to:
-            >>> # https://my.home-assistant.io/redirect/alexa?
+            >>> # {external_url}/auth/external/callback?
             >>> #   code=ANaRxDaHBpGQlt&state=xyzABC123
             >>> # Flow validates state, exchanges code for tokens
             >>> # Creates ConfigEntry with tokens
@@ -304,10 +330,11 @@ class AlexaFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         try:
             _LOGGER.info("Exchanging authorization code for tokens (code=%s...)", code[:8])
 
+            redirect_uri = self._get_redirect_uri()
             token_response = await oauth_manager.exchange_code(
                 code,
                 code_verifier,
-                HA_OAUTH_REDIRECT_URI,
+                redirect_uri,
             )
 
             # Store tokens temporarily for entry creation
@@ -345,7 +372,7 @@ class AlexaFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             entry_data = {
                 CONF_CLIENT_ID: client_id,
                 CONF_CLIENT_SECRET: client_secret,
-                CONF_REDIRECT_URI: HA_OAUTH_REDIRECT_URI,
+                CONF_REDIRECT_URI: redirect_uri,  # Already retrieved above
             }
 
             # Create entry and store pending tokens in context for __init__.py
@@ -476,9 +503,10 @@ class AlexaFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             )
 
             # Generate authorization URL with PKCE
+            redirect_uri = self._get_redirect_uri()
             auth_url, code_verifier, state = await self._oauth_manager.get_authorization_url(
                 self.flow_id,
-                HA_OAUTH_REDIRECT_URI,
+                redirect_uri,
             )
 
             # Store OAuth state for callback validation
