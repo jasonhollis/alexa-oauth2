@@ -1,7 +1,7 @@
 """Constants for the Alexa integration.
 
 CRITICAL FIX (2025-11-01): Changed OAuth scope from 'alexa::skills:account_linking'
-to 'smart_home' for compatibility with Alexa Smart Home skills.
+to 'profile:user_id' for compatibility with Alexa Smart Home skills using Login with Amazon.
 """
 
 from homeassistant.const import CONF_CLIENT_ID, CONF_CLIENT_SECRET
@@ -15,8 +15,8 @@ AMAZON_TOKEN_URL = "https://api.amazon.com/auth/o2/token"
 AMAZON_REVOKE_URL = "https://api.amazon.com/auth/o2/revoke"
 
 # OAuth2 Scopes
-# Required scope for Alexa Smart Home skills
-REQUIRED_SCOPES = "smart_home"
+# Required scope for Alexa Smart Home with Login with Amazon
+REQUIRED_SCOPES = "profile:user_id"
 
 # Timeouts (seconds)
 OAUTH_TIMEOUT_SECONDS = 30

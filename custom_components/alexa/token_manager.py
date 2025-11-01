@@ -67,7 +67,7 @@ class TokenManager:
             "refresh_token": "Atzr|...",
             "token_type": "Bearer",
             "expires_at": 1234567890.0,
-            "scope": "smart_home"
+            "scope": "profile:user_id"
         }
 
     Example:
@@ -249,7 +249,7 @@ class TokenManager:
                 "refresh_token": "Atzr|...",
                 "token_type": "Bearer",
                 "expires_at": 1234567890.0,  # Unix timestamp
-                "scope": "smart_home"
+                "scope": "profile:user_id"
             }
 
         Example:

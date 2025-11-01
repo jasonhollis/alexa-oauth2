@@ -302,7 +302,7 @@ class OAuthManager:
         URL Parameters:
             - client_id: Amazon client ID
             - response_type: "code" (authorization code flow)
-            - scope: Required scopes (smart_home)
+            - scope: Required scopes (profile:user_id)
             - redirect_uri: Registered callback URL
             - state: CSRF protection token
             - code_challenge: PKCE challenge
