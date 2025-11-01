@@ -69,7 +69,7 @@ def mock_config_entry_data() -> dict[str, Any]:
     return {
         CONF_CLIENT_ID: "amzn1.application-oa2-client.test123",
         CONF_CLIENT_SECRET: "test_secret_1234567890123456789012",
-        CONF_REDIRECT_URI: "https://my.home-assistant.io/redirect/oauth",
+        CONF_REDIRECT_URI: "https://my.home-assistant.io/redirect/alexa",
     }
 
 

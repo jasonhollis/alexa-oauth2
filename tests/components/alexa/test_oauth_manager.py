@@ -235,7 +235,7 @@ async def test_get_authorization_url(oauth_manager):
     from urllib.parse import unquote
 
     flow_id = "test_flow_123"
-    redirect_uri = "https://my.home-assistant.io/redirect/oauth"
+    redirect_uri = "https://my.home-assistant.io/redirect/alexa"
 
     auth_url, verifier, state = await oauth_manager.get_authorization_url(
         flow_id, redirect_uri
@@ -285,7 +285,7 @@ async def test_exchange_code_success(
     """Test successful token exchange."""
     code = "test_auth_code_12345"
     verifier = "test_verifier_12345678901234567890123456789"
-    redirect_uri = "https://my.home-assistant.io/redirect/oauth"
+    redirect_uri = "https://my.home-assistant.io/redirect/alexa"
 
     # Mock aiohttp response
     mock_response = AsyncMock()
@@ -313,7 +313,7 @@ async def test_exchange_code_invalid_code(oauth_manager, hass):
     """Test token exchange with invalid authorization code."""
     code = "invalid_code"
     verifier = "test_verifier_12345678901234567890123456789"
-    redirect_uri = "https://my.home-assistant.io/redirect/oauth"
+    redirect_uri = "https://my.home-assistant.io/redirect/alexa"
 
     # Mock error response
     error_response = {
@@ -342,7 +342,7 @@ async def test_exchange_code_invalid_client(oauth_manager, hass):
     """Test token exchange with invalid client credentials."""
     code = "test_code"
     verifier = "test_verifier_12345678901234567890123456789"
-    redirect_uri = "https://my.home-assistant.io/redirect/oauth"
+    redirect_uri = "https://my.home-assistant.io/redirect/alexa"
 
     # Mock error response
     error_response = {
@@ -371,7 +371,7 @@ async def test_exchange_code_timeout(oauth_manager, hass):
     """Test token exchange timeout."""
     code = "test_code"
     verifier = "test_verifier_12345678901234567890123456789"
-    redirect_uri = "https://my.home-assistant.io/redirect/oauth"
+    redirect_uri = "https://my.home-assistant.io/redirect/alexa"
 
     # Create mock session that raises timeout
     mock_session = MagicMock()
@@ -390,7 +390,7 @@ async def test_exchange_code_network_error(oauth_manager, hass):
     """Test token exchange network error."""
     code = "test_code"
     verifier = "test_verifier_12345678901234567890123456789"
-    redirect_uri = "https://my.home-assistant.io/redirect/oauth"
+    redirect_uri = "https://my.home-assistant.io/redirect/alexa"
 
     # Create mock session that raises network error
     mock_session = MagicMock()

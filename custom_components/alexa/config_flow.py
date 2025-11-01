@@ -42,8 +42,8 @@ from .token_manager import TokenManager
 
 _LOGGER = logging.getLogger(__name__)
 
-# Home Assistant OAuth redirect URI (standard for all integrations)
-HA_OAUTH_REDIRECT_URI = "https://my.home-assistant.io/redirect/oauth"
+# Home Assistant OAuth redirect URI (Alexa-specific endpoint)
+HA_OAUTH_REDIRECT_URI = "https://my.home-assistant.io/redirect/alexa"
 
 
 class AlexaFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
@@ -258,7 +258,7 @@ class AlexaFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
 
         Example:
             >>> # Amazon redirects to:
-            >>> # https://my.home-assistant.io/redirect/oauth?
+            >>> # https://my.home-assistant.io/redirect/alexa?
             >>> #   code=ANaRxDaHBpGQlt&state=xyzABC123
             >>> # Flow validates state, exchanges code for tokens
             >>> # Creates ConfigEntry with tokens

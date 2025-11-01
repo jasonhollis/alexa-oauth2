@@ -310,7 +310,7 @@ class OAuthManager:
 
         Example:
             >>> url, verifier, state = await oauth.get_authorization_url(
-            ...     "flow_123", "https://my.home-assistant.io/redirect/oauth"
+            ...     "flow_123", "https://my.home-assistant.io/redirect/alexa"
             ... )
             >>> # Store verifier and state in flow context
             >>> # Redirect user to url
