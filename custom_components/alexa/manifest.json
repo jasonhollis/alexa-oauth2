@@ -1,10 +1,10 @@
 {
   "domain": "alexa",
   "name": "Alexa OAuth2",
-  "codeowners": ["@jasonk"],
+  "codeowners": ["@jasonhollis"],
   "config_flow": true,
-  "documentation": "https://github.com/jasonk/alexa-oauth2",
-  "issue_tracker": "https://github.com/jasonk/alexa-oauth2/issues",
+  "documentation": "https://github.com/jasonhollis/alexa-oauth2",
+  "issue_tracker": "https://github.com/jasonhollis/alexa-oauth2/issues",
   "iot_class": "cloud_polling",
   "version": "0.1.0",
   "homeassistant": "2024.10.0",
