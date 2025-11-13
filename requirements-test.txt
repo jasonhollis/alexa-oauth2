@@ -1,0 +1,15 @@
+# Test dependencies for Alexa OAuth2 Integration
+# Install with: pip install -r requirements-test.txt
+
+# Core testing
+pytest==8.4.2
+pytest-cov==7.0.0
+pytest-asyncio==1.2.0
+
+# Required production dependencies
+cryptography>=43.0.0
+pyyaml>=6.0.0
+
+# Code quality tools
+mypy>=1.5.0
+flake8>=6.0.0

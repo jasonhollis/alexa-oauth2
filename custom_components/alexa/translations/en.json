@@ -1,0 +1,27 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Amazon Alexa OAuth2 Setup",
+        "description": "Enter your Amazon Login with Amazon (LWA) credentials. You can get these from: {setup_url}",
+        "data": {
+          "client_id": "Client ID",
+          "client_secret": "Client Secret"
+        },
+        "data_description": {
+          "client_id": "Your Amazon LWA Application Client ID (starts with 'amzn1.application-oa2-client')",
+          "client_secret": "Your Amazon LWA Application Client Secret (starts with 'amzn1.oa2-cs.v1')"
+        }
+      },
+      "pick_implementation": {
+        "title": "Authentication method"
+      }
+    },
+    "abort": {
+      "already_configured": "This Amazon account is already configured",
+      "cannot_connect": "Failed to connect to Amazon. Please check your internet connection and try again.",
+      "invalid_auth": "Invalid authentication. Please verify your Client ID and Client Secret.",
+      "missing_configuration": "OAuth implementation not found. Please try removing and re-adding the integration."
+    }
+  }
+}

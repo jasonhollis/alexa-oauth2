@@ -1,0 +1,14 @@
+{
+  "domain": "alexa",
+  "name": "Amazon Alexa",
+  "codeowners": ["@jasonhollis"],
+  "config_flow": true,
+  "documentation": "https://github.com/jasonhollis/alexa-oauth2",
+  "issue_tracker": "https://github.com/jasonhollis/alexa-oauth2/issues",
+  "iot_class": "cloud_push",
+  "integration_type": "service",
+  "version": "0.3.0",
+  "dependencies": ["http"],
+  "homeassistant": "2024.10.0",
+  "requirements": ["PyJWT>=2.8.0"]
+}
