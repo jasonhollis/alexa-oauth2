@@ -180,15 +180,22 @@ def mock_aiohttp_session():
     mock_response.json = AsyncMock()
     mock_response.text = AsyncMock(return_value="")
 
-    # Mock context manager for session.get/post/request
+    # Mock async context manager for response
     mock_response.__aenter__ = AsyncMock(return_value=mock_response)
     mock_response.__aexit__ = AsyncMock(return_value=None)
 
-    # For async context manager usage (async with session.get/post/request(...)):
-    # Return the mock_response directly (it has __aenter__/__aexit__)
+    # session.get/request: used as async with session.get/request(...):
+    # Returns the async context manager directly
     session.get = Mock(return_value=mock_response)
-    session.post = Mock(return_value=mock_response)
     session.request = Mock(return_value=mock_response)
+
+    # session.post: used as await session.post(...) in oauth.py
+    # Need to return a coroutine that when awaited gives mock_response
+    # But conftest is not async, so create a helper
+    async def async_post_response(*args, **kwargs):
+        return mock_response
+
+    session.post = Mock(side_effect=async_post_response)
 
     return session, mock_response
 
