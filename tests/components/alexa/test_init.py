@@ -18,6 +18,7 @@ from custom_components.alexa import (
 from custom_components.alexa.const import DOMAIN
 
 from .conftest import (
+    TEST_ACCESS_TOKEN,
     TEST_CLIENT_ID,
     TEST_CLIENT_SECRET,
     TEST_USER_ID,
@@ -58,8 +59,13 @@ class TestAsyncSetup:
 class TestAsyncSetupEntry:
     """Test async_setup_entry function."""
 
-    async def test_async_setup_entry_success(self, mock_hass, mock_config_entry):
+    async def test_async_setup_entry_success(self, mock_hass, mock_config_entry, mock_aiohttp_session):
         """Test successful setup of config entry."""
+        aiohttp_session, mock_response = mock_aiohttp_session
+
+        # Setup device list response
+        mock_response.json = AsyncMock(return_value={"devices": []})
+
         with patch(
             "custom_components.alexa.config_entry_oauth2_flow.async_get_implementations",
             return_value={},
@@ -77,8 +83,13 @@ class TestAsyncSetupEntry:
             mock_impl.client_secret = TEST_CLIENT_SECRET
             mock_get_impl.return_value = mock_impl
 
-            mock_session = Mock()
+            # Create OAuth2Session mock with inner aiohttp session
+            # Mock must be subscriptable for token["access_token"] access
+            from unittest.mock import MagicMock
+            mock_session = MagicMock()
             mock_session.async_ensure_token_valid = AsyncMock()
+            mock_session.token = {"access_token": TEST_ACCESS_TOKEN}
+            mock_session.session = aiohttp_session  # Inner aiohttp session
             mock_session_class.return_value = mock_session
 
             # Run setup
@@ -87,7 +98,8 @@ class TestAsyncSetupEntry:
             # Verify success
             assert result is True
             mock_register.assert_called_once()
-            mock_session.async_ensure_token_valid.assert_called_once()
+            # Token validation is called during initial check and during coordinator setup
+            mock_session.async_ensure_token_valid.assert_called()
 
             # Verify data stored
             assert mock_config_entry.entry_id in mock_hass.data[DOMAIN]
@@ -98,9 +110,14 @@ class TestAsyncSetupEntry:
             assert entry_data["name"] == TEST_USER_NAME
 
     async def test_async_setup_entry_already_registered(
-        self, mock_hass, mock_config_entry
+        self, mock_hass, mock_config_entry, mock_aiohttp_session
     ):
         """Test setup when OAuth implementation is already registered."""
+        aiohttp_session, mock_response = mock_aiohttp_session
+
+        # Setup device list response
+        mock_response.json = AsyncMock(return_value={"devices": []})
+
         with patch(
             "custom_components.alexa.config_entry_oauth2_flow.async_get_implementations",
             return_value={DOMAIN: Mock()},  # Already registered
@@ -118,8 +135,11 @@ class TestAsyncSetupEntry:
             mock_impl.client_secret = TEST_CLIENT_SECRET
             mock_get_impl.return_value = mock_impl
 
-            mock_session = Mock()
+            from unittest.mock import MagicMock
+            mock_session = MagicMock()
             mock_session.async_ensure_token_valid = AsyncMock()
+            mock_session.token = {"access_token": TEST_ACCESS_TOKEN}
+            mock_session.session = aiohttp_session  # Inner aiohttp session
             mock_session_class.return_value = mock_session
 
             # Run setup
@@ -146,7 +166,6 @@ class TestAsyncSetupEntry:
             unique_id="user_bad",
             discovery_keys={},
             options={},
-            subentries_data=[],
         )
 
         with patch(
@@ -179,7 +198,6 @@ class TestAsyncSetupEntry:
             unique_id="user_bad2",
             discovery_keys={},
             options={},
-            subentries_data=[],
         )
 
         with patch(
@@ -217,9 +235,14 @@ class TestAsyncSetupEntry:
             assert "Failed to get OAuth implementation" in error_msg
 
     async def test_async_setup_entry_token_validation_fails(
-        self, mock_hass, mock_config_entry
+        self, mock_hass, mock_config_entry, mock_aiohttp_session
     ):
         """Test setup continues even if token validation fails."""
+        aiohttp_session, mock_response = mock_aiohttp_session
+
+        # Setup device list response
+        mock_response.json = AsyncMock(return_value={"devices": []})
+
         with patch(
             "custom_components.alexa.config_entry_oauth2_flow.async_get_implementations",
             return_value={},
@@ -237,22 +260,31 @@ class TestAsyncSetupEntry:
             mock_impl.client_secret = TEST_CLIENT_SECRET
             mock_get_impl.return_value = mock_impl
 
-            # Mock session with failing token validation
-            mock_session = Mock()
+            # Mock session with failing token validation on first call, then succeeding
+            from unittest.mock import MagicMock
+            mock_session = MagicMock()
+            # First call fails (initial validation), subsequent calls succeed (coordinator usage)
             mock_session.async_ensure_token_valid = AsyncMock(
-                side_effect=Exception("Token expired")
+                side_effect=[Exception("Token expired"), None, None]
             )
+            mock_session.token = {"access_token": TEST_ACCESS_TOKEN}
+            mock_session.session = aiohttp_session  # Inner aiohttp session
             mock_session_class.return_value = mock_session
 
-            # Run setup - should succeed despite validation failure
+            # Run setup - should succeed despite initial validation failure
             result = await async_setup_entry(mock_hass, mock_config_entry)
 
-            # Setup should continue (framework will trigger reauth)
+            # Setup should continue (initial validation failure is caught and logged)
             assert result is True
             assert mock_config_entry.entry_id in mock_hass.data[DOMAIN]
 
-    async def test_async_setup_entry_with_platforms(self, mock_hass, mock_config_entry):
+    async def test_async_setup_entry_with_platforms(self, mock_hass, mock_config_entry, mock_aiohttp_session):
         """Test setup forwards to platforms when PLATFORMS is defined."""
+        aiohttp_session, mock_response = mock_aiohttp_session
+
+        # Setup device list response
+        mock_response.json = AsyncMock(return_value={"devices": []})
+
         with patch(
             "custom_components.alexa.config_entry_oauth2_flow.async_get_implementations",
             return_value={},
@@ -273,8 +305,11 @@ class TestAsyncSetupEntry:
             mock_impl.client_secret = TEST_CLIENT_SECRET
             mock_get_impl.return_value = mock_impl
 
-            mock_session = Mock()
+            from unittest.mock import MagicMock
+            mock_session = MagicMock()
             mock_session.async_ensure_token_valid = AsyncMock()
+            mock_session.token = {"access_token": TEST_ACCESS_TOKEN}
+            mock_session.session = aiohttp_session  # Inner aiohttp session
             mock_session_class.return_value = mock_session
 
             # Run setup
@@ -390,7 +425,6 @@ class TestAsyncMigrateEntry:
             unique_id="user_unknown",
             discovery_keys={},
             options={},
-            subentries_data=[],
         )
 
         with patch("custom_components.alexa._LOGGER.error") as mock_error:
@@ -419,9 +453,14 @@ class TestIntegrationInitialization:
         assert isinstance(mock_hass.data[DOMAIN], dict)
 
     async def test_multiple_entries_share_domain_data(
-        self, mock_hass, mock_config_entry
+        self, mock_hass, mock_config_entry, mock_aiohttp_session
     ):
         """Test that multiple config entries share the same domain data."""
+        aiohttp_session, mock_response = mock_aiohttp_session
+
+        # Setup device list response
+        mock_response.json = AsyncMock(return_value={"devices": []})
+
         # Setup first entry
         with patch(
             "custom_components.alexa.config_entry_oauth2_flow.async_get_implementations",
@@ -439,8 +478,11 @@ class TestIntegrationInitialization:
             mock_impl.client_secret = TEST_CLIENT_SECRET
             mock_get_impl.return_value = mock_impl
 
-            mock_session = Mock()
+            from unittest.mock import MagicMock
+            mock_session = MagicMock()
             mock_session.async_ensure_token_valid = AsyncMock()
+            mock_session.token = {"access_token": TEST_ACCESS_TOKEN}
+            mock_session.session = aiohttp_session  # Inner aiohttp session
             mock_session_class.return_value = mock_session
 
             await async_setup_entry(mock_hass, mock_config_entry)
@@ -463,7 +505,6 @@ class TestIntegrationInitialization:
             unique_id="user2",
             discovery_keys={},
             options={},
-            subentries_data=[],
         )
 
         # Setup second entry
@@ -477,8 +518,11 @@ class TestIntegrationInitialization:
         ) as mock_session_class2:
 
             mock_get_impl2.return_value = mock_impl
-            mock_session2 = Mock()
+            from unittest.mock import MagicMock
+            mock_session2 = MagicMock()
             mock_session2.async_ensure_token_valid = AsyncMock()
+            mock_session2.token = {"access_token": "token2"}  # Provide token dict
+            mock_session2.session = aiohttp_session  # Inner aiohttp session
             mock_session_class2.return_value = mock_session2
 
             await async_setup_entry(mock_hass, entry2)

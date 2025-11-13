@@ -48,6 +48,9 @@ def mock_hass(tmp_path) -> HomeAssistant:
     hass.config = Mock()
     hass.config.config_dir = str(config_dir)
     hass.config.path = lambda *args: str(config_dir / (args[0] if args else ""))
+    hass.config.components = []  # No "my" integration by default
+    hass.config.api = Mock()
+    hass.config.api.base_url = "http://localhost:8123"  # Default base URL for tests
 
     # Setup config_entries manager
     hass.config_entries = Mock()
@@ -97,7 +100,6 @@ def mock_config_entry() -> ConfigEntry:
         unique_id=TEST_USER_ID,
         discovery_keys={},
         options={},
-        subentries_data=[],
     )
 
 
@@ -129,7 +131,6 @@ def mock_expired_config_entry() -> ConfigEntry:
         unique_id=TEST_USER_ID,
         discovery_keys={},
         options={},
-        subentries_data=[],
     )
 
 
@@ -179,17 +180,15 @@ def mock_aiohttp_session():
     mock_response.json = AsyncMock()
     mock_response.text = AsyncMock(return_value="")
 
-    # Mock context manager for session.get/post
+    # Mock context manager for session.get/post/request
     mock_response.__aenter__ = AsyncMock(return_value=mock_response)
     mock_response.__aexit__ = AsyncMock(return_value=None)
 
-    # For async context manager usage (async with session.get(...)):
+    # For async context manager usage (async with session.get/post/request(...)):
     # Return the mock_response directly (it has __aenter__/__aexit__)
     session.get = Mock(return_value=mock_response)
-
-    # For direct await usage (await session.post(...)):
-    # Return an AsyncMock that returns mock_response
-    session.post = AsyncMock(return_value=mock_response)
+    session.post = Mock(return_value=mock_response)
+    session.request = Mock(return_value=mock_response)
 
     return session, mock_response
 

@@ -105,20 +105,21 @@ class TestAlexaOAuth2ImplementationProperties:
         assert impl.domain == DOMAIN
 
     def test_redirect_uri_property(self, mock_hass):
-        """Test redirect_uri property calls framework function."""
+        """Test redirect_uri property returns correct callback path."""
+        # Setup mock_hass config with no "my" component (local mode)
+        mock_hass.config.components = []
+        mock_hass.config.api = Mock()
+        mock_hass.config.api.base_url = "http://localhost:8123"
+
         impl = AlexaOAuth2Implementation(
             mock_hass, DOMAIN, TEST_CLIENT_ID, TEST_CLIENT_SECRET
         )
 
-        with patch(
-            "custom_components.alexa.oauth.config_entry_oauth2_flow.async_get_redirect_uri",
-            return_value="http://localhost:8123/auth/external/callback",
-        ) as mock_get_uri:
+        # Should use api.base_url since no HTTP request context
+        redirect_uri = impl.redirect_uri
 
-            redirect_uri = impl.redirect_uri
-
-            mock_get_uri.assert_called_once_with(mock_hass)
-            assert redirect_uri == "http://localhost:8123/auth/external/callback"
+        # Should return base_url + AUTH_CALLBACK_PATH
+        assert redirect_uri == "http://localhost:8123/auth/external/callback"
 
 
 class TestGeneratePkcePair:
@@ -209,14 +210,14 @@ class TestAsyncGenerateAuthorizeUrl:
 
     async def test_generate_authorize_url_success(self, mock_hass):
         """Test successful authorization URL generation."""
+        # Setup mock_hass to use fallback redirect_uri
+        mock_hass.config.components = []
+
         impl = AlexaOAuth2Implementation(
             mock_hass, DOMAIN, TEST_CLIENT_ID, TEST_CLIENT_SECRET
         )
 
-        with patch(
-            "custom_components.alexa.oauth.config_entry_oauth2_flow.async_get_redirect_uri",
-            return_value="http://localhost:8123/auth/external/callback",
-        ), patch.object(
+        with patch.object(
             impl, "_generate_pkce_pair", return_value=(TEST_VERIFIER, TEST_CHALLENGE)
         ):
 
@@ -236,14 +237,14 @@ class TestAsyncGenerateAuthorizeUrl:
 
     async def test_generate_authorize_url_stores_verifier(self, mock_hass):
         """Test that verifier is stored for later use."""
+        # Setup mock_hass to use fallback redirect_uri
+        mock_hass.config.components = []
+
         impl = AlexaOAuth2Implementation(
             mock_hass, DOMAIN, TEST_CLIENT_ID, TEST_CLIENT_SECRET
         )
 
-        with patch(
-            "custom_components.alexa.oauth.config_entry_oauth2_flow.async_get_redirect_uri",
-            return_value="http://localhost:8123/auth/external/callback",
-        ), patch.object(
+        with patch.object(
             impl, "_generate_pkce_pair", return_value=(TEST_VERIFIER, TEST_CHALLENGE)
         ):
 
@@ -255,16 +256,16 @@ class TestAsyncGenerateAuthorizeUrl:
 
     async def test_generate_authorize_url_jwt_state(self, mock_hass):
         """Test that state parameter is JWT-encoded."""
+        # Setup mock_hass to use fallback redirect_uri
+        mock_hass.config.components = []
+
         impl = AlexaOAuth2Implementation(
             mock_hass, DOMAIN, TEST_CLIENT_ID, TEST_CLIENT_SECRET
         )
 
         redirect_uri = "http://localhost:8123/auth/external/callback"
 
-        with patch(
-            "custom_components.alexa.oauth.config_entry_oauth2_flow.async_get_redirect_uri",
-            return_value=redirect_uri,
-        ), patch.object(
+        with patch.object(
             impl, "_generate_pkce_pair", return_value=(TEST_VERIFIER, TEST_CHALLENGE)
         ), patch(
             "custom_components.alexa.oauth._encode_jwt",
@@ -291,6 +292,9 @@ class TestAsyncResolveExternalData:
         self, mock_hass, mock_amazon_token_response, mock_aiohttp_session
     ):
         """Test successful token exchange with PKCE verifier."""
+        # Setup mock_hass to use fallback redirect_uri
+        mock_hass.config.components = []
+
         impl = AlexaOAuth2Implementation(
             mock_hass, DOMAIN, TEST_CLIENT_ID, TEST_CLIENT_SECRET
         )
@@ -313,9 +317,6 @@ class TestAsyncResolveExternalData:
         with patch(
             "homeassistant.helpers.aiohttp_client.async_get_clientsession",
             return_value=session,
-        ), patch(
-            "custom_components.alexa.oauth.config_entry_oauth2_flow.async_get_redirect_uri",
-            return_value="http://localhost:8123/auth/external/callback",
         ):
 
             result = await impl.async_resolve_external_data(external_data)
@@ -341,6 +342,9 @@ class TestAsyncResolveExternalData:
         self, mock_hass, mock_amazon_token_response, mock_aiohttp_session
     ):
         """Test that verifier is removed after use."""
+        # Setup mock_hass to use fallback redirect_uri
+        mock_hass.config.components = []
+
         impl = AlexaOAuth2Implementation(
             mock_hass, DOMAIN, TEST_CLIENT_ID, TEST_CLIENT_SECRET
         )
@@ -363,9 +367,6 @@ class TestAsyncResolveExternalData:
         with patch(
             "homeassistant.helpers.aiohttp_client.async_get_clientsession",
             return_value=session,
-        ), patch(
-            "custom_components.alexa.oauth.config_entry_oauth2_flow.async_get_redirect_uri",
-            return_value="http://localhost:8123/auth/external/callback",
         ):
 
             await impl.async_resolve_external_data(external_data)
@@ -425,6 +426,9 @@ class TestAsyncResolveExternalData:
         self, mock_hass, mock_aiohttp_session
     ):
         """Test error when token exchange fails."""
+        # Setup mock_hass to use fallback redirect_uri
+        mock_hass.config.components = []
+
         impl = AlexaOAuth2Implementation(
             mock_hass, DOMAIN, TEST_CLIENT_ID, TEST_CLIENT_SECRET
         )
@@ -447,9 +451,6 @@ class TestAsyncResolveExternalData:
         with patch(
             "homeassistant.helpers.aiohttp_client.async_get_clientsession",
             return_value=session,
-        ), patch(
-            "custom_components.alexa.oauth.config_entry_oauth2_flow.async_get_redirect_uri",
-            return_value="http://localhost:8123/auth/external/callback",
         ):
 
             with pytest.raises(ValueError, match="Token exchange failed"):
@@ -575,6 +576,9 @@ class TestPKCESecurityProperties:
 
     async def test_pkce_one_time_use(self, mock_hass, mock_aiohttp_session):
         """Test verifier is one-time use (removed after exchange)."""
+        # Setup mock_hass to use fallback redirect_uri
+        mock_hass.config.components = []
+
         impl = AlexaOAuth2Implementation(
             mock_hass, DOMAIN, TEST_CLIENT_ID, TEST_CLIENT_SECRET
         )
@@ -597,9 +601,6 @@ class TestPKCESecurityProperties:
         with patch(
             "homeassistant.helpers.aiohttp_client.async_get_clientsession",
             return_value=session,
-        ), patch(
-            "custom_components.alexa.oauth.config_entry_oauth2_flow.async_get_redirect_uri",
-            return_value="http://localhost:8123/auth/external/callback",
         ):
 
             # First use should succeed

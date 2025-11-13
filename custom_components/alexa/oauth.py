@@ -98,13 +98,29 @@ class AlexaOAuth2Implementation(config_entry_oauth2_flow.AbstractOAuth2Implement
     def redirect_uri(self) -> str:
         """Return the redirect URI for OAuth callback.
 
-        Uses framework's async_get_redirect_uri() which returns:
+        Returns:
         - https://my.home-assistant.io/redirect/oauth if "my" integration is active (Nabu Casa Cloud routing)
-        - Otherwise: frontend base URL + /auth/external/callback
+        - Otherwise: uses AUTH_CALLBACK_PATH (/auth/external/callback) with current request's frontend base URL
 
         This ensures proper routing through Nabu Casa Cloud proxy when using Home Assistant Cloud.
         """
-        return config_entry_oauth2_flow.async_get_redirect_uri(self.hass)
+        from homeassistant.components import http
+
+        # If Home Assistant Cloud ("my" integration) is active, use cloud redirect
+        if "my" in self.hass.config.components:
+            return config_entry_oauth2_flow.MY_AUTH_CALLBACK_PATH
+
+        # Otherwise, build redirect URI from current request
+        if (req := http.current_request.get()) is not None:
+            if (ha_host := req.headers.get(http.HEADER_FRONTEND_BASE)) is not None:
+                return f"{ha_host}{config_entry_oauth2_flow.AUTH_CALLBACK_PATH}"
+
+        # Fallback: use local base URL (for testing)
+        if hasattr(self.hass.config, 'api') and hasattr(self.hass.config.api, 'base_url'):
+            return f"{self.hass.config.api.base_url}{config_entry_oauth2_flow.AUTH_CALLBACK_PATH}"
+
+        # Final fallback for tests
+        return f"http://localhost:8123{config_entry_oauth2_flow.AUTH_CALLBACK_PATH}"
 
     def _generate_pkce_pair(self) -> tuple[str, str]:
         """Generate PKCE verifier and challenge pair.

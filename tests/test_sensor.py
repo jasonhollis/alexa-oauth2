@@ -194,7 +194,7 @@ class TestAlexaSensorEntity:
         )
 
         assert entity._sensor_type == "contact"
-        assert entity._attr_device_class == SensorDeviceClass.DOOR
+        assert entity._attr_device_class == SensorDeviceClass.ENUM
 
     def test_motion_entity_creation(self, mock_coordinator, motion_sensor_device):
         """Test motion sensor entity creation."""
@@ -207,7 +207,7 @@ class TestAlexaSensorEntity:
         )
 
         assert entity._sensor_type == "motion"
-        assert entity._attr_device_class == SensorDeviceClass.MOTION
+        assert entity._attr_device_class == SensorDeviceClass.ENUM
 
     def test_battery_entity_creation(self, mock_coordinator, battery_device):
         """Test battery sensor entity creation."""

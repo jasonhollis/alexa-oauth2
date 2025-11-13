@@ -167,9 +167,9 @@ class AlexaSensorEntity(CoordinatorEntity[AlexaDeviceCoordinator], SensorEntity)
             self._attr_native_unit_of_measurement = PERCENTAGE
             self._attr_state_class = SensorStateClass.MEASUREMENT
         elif sensor_type == "contact":
-            self._attr_device_class = SensorDeviceClass.DOOR
+            self._attr_device_class = SensorDeviceClass.ENUM
         elif sensor_type == "motion":
-            self._attr_device_class = SensorDeviceClass.MOTION
+            self._attr_device_class = SensorDeviceClass.ENUM
         elif sensor_type == "battery":
             self._attr_device_class = SensorDeviceClass.BATTERY
             self._attr_native_unit_of_measurement = PERCENTAGE

@@ -1,0 +1,413 @@
+Collecting homeassistant
+  Downloading homeassistant-2025.1.4-py3-none-any.whl.metadata (4.8 kB)
+Collecting pytest-homeassistant-custom-component
+  Downloading pytest_homeassistant_custom_component-0.13.205-py3-none-any.whl.metadata (5.3 kB)
+Requirement already satisfied: PyJWT in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (2.10.1)
+Collecting aiodns==3.2.0 (from homeassistant)
+  Using cached aiodns-3.2.0-py3-none-any.whl.metadata (4.0 kB)
+Collecting aiohasupervisor==0.2.2b5 (from homeassistant)
+  Downloading aiohasupervisor-0.2.2b5-py3-none-any.whl.metadata (5.1 kB)
+Collecting aiohttp==3.11.11 (from homeassistant)
+  Downloading aiohttp-3.11.11-cp312-cp312-macosx_11_0_arm64.whl.metadata (7.7 kB)
+Collecting aiohttp-cors==0.7.0 (from homeassistant)
+  Using cached aiohttp_cors-0.7.0-py3-none-any.whl.metadata (20 kB)
+Collecting aiohttp-fast-zlib==0.2.0 (from homeassistant)
+  Downloading aiohttp_fast_zlib-0.2.0-py3-none-any.whl.metadata (5.6 kB)
+Collecting aiozoneinfo==0.2.1 (from homeassistant)
+  Using cached aiozoneinfo-0.2.1-py3-none-any.whl.metadata (5.5 kB)
+Collecting astral==2.2 (from homeassistant)
+  Using cached astral-2.2-py2.py3-none-any.whl.metadata (1.5 kB)
+Collecting async-interrupt==1.2.0 (from homeassistant)
+  Using cached async_interrupt-1.2.0-py3-none-any.whl.metadata (4.9 kB)
+Collecting attrs==24.2.0 (from homeassistant)
+  Downloading attrs-24.2.0-py3-none-any.whl.metadata (11 kB)
+Collecting atomicwrites-homeassistant==1.4.1 (from homeassistant)
+  Using cached atomicwrites_homeassistant-1.4.1-py2.py3-none-any.whl.metadata (6.0 kB)
+Collecting awesomeversion==24.6.0 (from homeassistant)
+  Using cached awesomeversion-24.6.0-py3-none-any.whl.metadata (9.0 kB)
+Requirement already satisfied: bcrypt==4.2.0 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from homeassistant) (4.2.0)
+Requirement already satisfied: certifi>=2021.5.30 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from homeassistant) (2024.12.14)
+Collecting ciso8601==2.3.2 (from homeassistant)
+  Downloading ciso8601-2.3.2-cp312-cp312-macosx_11_0_arm64.whl.metadata (23 kB)
+Collecting cronsim==2.6 (from homeassistant)
+  Using cached cronsim-2.6-py3-none-any.whl.metadata (6.9 kB)
+Collecting fnv-hash-fast==1.0.2 (from homeassistant)
+  Using cached fnv_hash_fast-1.0.2-cp312-cp312-macosx_14_0_arm64.whl.metadata (4.7 kB)
+Collecting hass-nabucasa==0.87.0 (from homeassistant)
+  Downloading hass_nabucasa-0.87.0-py3-none-any.whl.metadata (1.8 kB)
+Collecting httpx==0.27.2 (from homeassistant)
+  Using cached httpx-0.27.2-py3-none-any.whl.metadata (7.1 kB)
+Collecting home-assistant-bluetooth==1.13.0 (from homeassistant)
+  Downloading home_assistant_bluetooth-1.13.0-py3-none-any.whl.metadata (5.4 kB)
+Collecting ifaddr==0.2.0 (from homeassistant)
+  Using cached ifaddr-0.2.0-py3-none-any.whl.metadata (4.9 kB)
+Requirement already satisfied: Jinja2==3.1.5 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from homeassistant) (3.1.5)
+Collecting lru-dict==1.3.0 (from homeassistant)
+  Using cached lru_dict-1.3.0-cp312-cp312-macosx_11_0_arm64.whl.metadata (4.5 kB)
+Requirement already satisfied: cryptography==44.0.0 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from homeassistant) (44.0.0)
+Collecting Pillow==11.0.0 (from homeassistant)
+  Downloading pillow-11.0.0-cp312-cp312-macosx_11_0_arm64.whl.metadata (9.1 kB)
+Requirement already satisfied: propcache==0.2.1 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from homeassistant) (0.2.1)
+Collecting pyOpenSSL==24.3.0 (from homeassistant)
+  Downloading pyOpenSSL-24.3.0-py3-none-any.whl.metadata (15 kB)
+Collecting orjson==3.10.12 (from homeassistant)
+  Downloading orjson-3.10.12-cp312-cp312-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl.metadata (41 kB)
+Requirement already satisfied: packaging>=23.1 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from homeassistant) (23.2)
+Collecting psutil-home-assistant==0.0.1 (from homeassistant)
+  Using cached psutil_home_assistant-0.0.1-py3-none-any.whl.metadata (882 bytes)
+Collecting python-slugify==8.0.4 (from homeassistant)
+  Using cached python_slugify-8.0.4-py2.py3-none-any.whl.metadata (8.5 kB)
+Requirement already satisfied: PyYAML==6.0.2 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from homeassistant) (6.0.2)
+Requirement already satisfied: requests==2.32.3 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from homeassistant) (2.32.3)
+Collecting securetar==2024.11.0 (from homeassistant)
+  Downloading securetar-2024.11.0-py3-none-any.whl.metadata (2.0 kB)
+Collecting SQLAlchemy==2.0.36 (from homeassistant)
+  Downloading SQLAlchemy-2.0.36-cp312-cp312-macosx_11_0_arm64.whl.metadata (9.7 kB)
+Requirement already satisfied: typing-extensions<5.0,>=4.12.2 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from homeassistant) (4.12.2)
+Collecting ulid-transform==1.0.2 (from homeassistant)
+  Using cached ulid_transform-1.0.2-cp312-cp312-macosx_14_0_arm64.whl.metadata (5.4 kB)
+Collecting urllib3<2,>=1.26.5 (from homeassistant)
+  Using cached urllib3-1.26.20-py2.py3-none-any.whl.metadata (50 kB)
+Collecting uv==0.5.8 (from homeassistant)
+  Downloading uv-0.5.8-py3-none-macosx_11_0_arm64.whl.metadata (11 kB)
+Collecting voluptuous==0.15.2 (from homeassistant)
+  Using cached voluptuous-0.15.2-py3-none-any.whl.metadata (20 kB)
+Collecting voluptuous-serialize==2.6.0 (from homeassistant)
+  Using cached voluptuous_serialize-2.6.0-py3-none-any.whl.metadata (316 bytes)
+Collecting voluptuous-openapi==0.0.5 (from homeassistant)
+  Using cached voluptuous_openapi-0.0.5-py3-none-any.whl.metadata (325 bytes)
+Requirement already satisfied: yarl==1.18.3 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from homeassistant) (1.18.3)
+Collecting webrtc-models==0.3.0 (from homeassistant)
+  Using cached webrtc_models-0.3.0-py3-none-any.whl.metadata (2.9 kB)
+Collecting pycares>=4.0.0 (from aiodns==3.2.0->homeassistant)
+  Using cached pycares-4.11.0-cp312-cp312-macosx_11_0_arm64.whl.metadata (4.5 kB)
+Collecting mashumaro<4.0,>=3.11 (from aiohasupervisor==0.2.2b5->homeassistant)
+  Using cached mashumaro-3.17-py3-none-any.whl.metadata (118 kB)
+Requirement already satisfied: aiohappyeyeballs>=2.3.0 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from aiohttp==3.11.11->homeassistant) (2.4.4)
+Requirement already satisfied: aiosignal>=1.1.2 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from aiohttp==3.11.11->homeassistant) (1.3.2)
+Requirement already satisfied: frozenlist>=1.1.1 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from aiohttp==3.11.11->homeassistant) (1.5.0)
+Requirement already satisfied: multidict<7.0,>=4.5 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from aiohttp==3.11.11->homeassistant) (6.1.0)
+Requirement already satisfied: tzdata>=2024.1 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from aiozoneinfo==0.2.1->homeassistant) (2024.2)
+Requirement already satisfied: pytz in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from astral==2.2->homeassistant) (2024.2)
+Requirement already satisfied: cffi>=1.12 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from cryptography==44.0.0->homeassistant) (1.17.1)
+Collecting fnvhash<0.2.0,>=0.1.0 (from fnv-hash-fast==1.0.2->homeassistant)
+  Using cached fnvhash-0.1.0-py3-none-any.whl
+Collecting acme==3.0.1 (from hass-nabucasa==0.87.0->homeassistant)
+  Downloading acme-3.0.1-py3-none-any.whl.metadata (1.4 kB)
+Collecting pycognito==2024.5.1 (from hass-nabucasa==0.87.0->homeassistant)
+  Using cached pycognito-2024.5.1-py3-none-any.whl.metadata (24 kB)
+Collecting snitun==0.39.1 (from hass-nabucasa==0.87.0->homeassistant)
+  Using cached snitun-0.39.1-py3-none-any.whl.metadata (4.5 kB)
+Collecting habluetooth>=3.0 (from home-assistant-bluetooth==1.13.0->homeassistant)
+  Using cached habluetooth-5.7.0-cp312-cp312-macosx_11_0_arm64.whl.metadata (5.3 kB)
+Requirement already satisfied: anyio in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from httpx==0.27.2->homeassistant) (4.8.0)
+Requirement already satisfied: httpcore==1.* in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from httpx==0.27.2->homeassistant) (1.0.7)
+Requirement already satisfied: idna in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from httpx==0.27.2->homeassistant) (3.10)
+Requirement already satisfied: sniffio in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from httpx==0.27.2->homeassistant) (1.3.1)
+Requirement already satisfied: MarkupSafe>=2.0 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from Jinja2==3.1.5->homeassistant) (3.0.2)
+Requirement already satisfied: psutil in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from psutil-home-assistant==0.0.1->homeassistant) (6.1.1)
+Collecting text-unidecode>=1.3 (from python-slugify==8.0.4->homeassistant)
+  Using cached text_unidecode-1.3-py2.py3-none-any.whl.metadata (2.4 kB)
+Requirement already satisfied: charset-normalizer<4,>=2 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from requests==2.32.3->homeassistant) (3.4.1)
+Collecting josepy<2,>=1.13.0 (from acme==3.0.1->hass-nabucasa==0.87.0->homeassistant)
+  Using cached josepy-1.15.0-py3-none-any.whl.metadata (1.7 kB)
+Collecting pyrfc3339 (from acme==3.0.1->hass-nabucasa==0.87.0->homeassistant)
+  Using cached pyrfc3339-2.1.0-py3-none-any.whl.metadata (2.8 kB)
+Requirement already satisfied: setuptools>=41.6.0 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from acme==3.0.1->hass-nabucasa==0.87.0->homeassistant) (70.0.0)
+Requirement already satisfied: h11<0.15,>=0.13 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from httpcore==1.*->httpx==0.27.2->homeassistant) (0.14.0)
+Requirement already satisfied: boto3>=1.10.49 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from pycognito==2024.5.1->hass-nabucasa==0.87.0->homeassistant) (1.35.53)
+Collecting envs>=1.3 (from pycognito==2024.5.1->hass-nabucasa==0.87.0->homeassistant)
+  Using cached envs-1.4-py3-none-any.whl.metadata (842 bytes)
+Requirement already satisfied: async-timeout>=3.0.1 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from snitun==0.39.1->hass-nabucasa==0.87.0->homeassistant) (5.0.1)
+Collecting coverage==7.6.8 (from pytest-homeassistant-custom-component)
+  Downloading coverage-7.6.8-cp312-cp312-macosx_11_0_arm64.whl.metadata (8.2 kB)
+Collecting freezegun==1.5.1 (from pytest-homeassistant-custom-component)
+  Downloading freezegun-1.5.1-py3-none-any.whl.metadata (11 kB)
+Collecting license-expression==30.4.0 (from pytest-homeassistant-custom-component)
+  Downloading license_expression-30.4.0-py3-none-any.whl.metadata (12 kB)
+Collecting mock-open==1.4.0 (from pytest-homeassistant-custom-component)
+  Downloading mock-open-1.4.0.tar.gz (12 kB)
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Collecting pydantic==2.10.4 (from pytest-homeassistant-custom-component)
+  Downloading pydantic-2.10.4-py3-none-any.whl.metadata (29 kB)
+Collecting pylint-per-file-ignores==1.3.2 (from pytest-homeassistant-custom-component)
+  Downloading pylint_per_file_ignores-1.3.2-py3-none-any.whl.metadata (2.0 kB)
+Collecting pipdeptree==2.23.4 (from pytest-homeassistant-custom-component)
+  Downloading pipdeptree-2.23.4-py3-none-any.whl.metadata (15 kB)
+Collecting pytest-asyncio==0.24.0 (from pytest-homeassistant-custom-component)
+  Downloading pytest_asyncio-0.24.0-py3-none-any.whl.metadata (3.9 kB)
+Collecting pytest-aiohttp==1.0.5 (from pytest-homeassistant-custom-component)
+  Downloading pytest_aiohttp-1.0.5-py3-none-any.whl.metadata (2.6 kB)
+Collecting pytest-cov==6.0.0 (from pytest-homeassistant-custom-component)
+  Downloading pytest_cov-6.0.0-py3-none-any.whl.metadata (27 kB)
+Collecting pytest-freezer==0.4.8 (from pytest-homeassistant-custom-component)
+  Downloading pytest_freezer-0.4.8-py3-none-any.whl.metadata (2.4 kB)
+Collecting pytest-github-actions-annotate-failures==0.2.0 (from pytest-homeassistant-custom-component)
+  Downloading pytest_github_actions_annotate_failures-0.2.0-py3-none-any.whl.metadata (3.1 kB)
+Collecting pytest-socket==0.7.0 (from pytest-homeassistant-custom-component)
+  Downloading pytest_socket-0.7.0-py3-none-any.whl.metadata (6.7 kB)
+Collecting pytest-sugar==1.0.0 (from pytest-homeassistant-custom-component)
+  Downloading pytest_sugar-1.0.0-py3-none-any.whl.metadata (4.4 kB)
+Collecting pytest-timeout==2.3.1 (from pytest-homeassistant-custom-component)
+  Downloading pytest_timeout-2.3.1-py3-none-any.whl.metadata (20 kB)
+Collecting pytest-unordered==0.6.1 (from pytest-homeassistant-custom-component)
+  Downloading pytest_unordered-0.6.1-py3-none-any.whl.metadata (6.4 kB)
+Collecting pytest-picked==0.5.0 (from pytest-homeassistant-custom-component)
+  Downloading pytest_picked-0.5.0-py3-none-any.whl.metadata (4.1 kB)
+Collecting pytest-xdist==3.6.1 (from pytest-homeassistant-custom-component)
+  Downloading pytest_xdist-3.6.1-py3-none-any.whl.metadata (4.3 kB)
+Collecting pytest==8.3.4 (from pytest-homeassistant-custom-component)
+  Downloading pytest-8.3.4-py3-none-any.whl.metadata (7.5 kB)
+Collecting requests-mock==1.12.1 (from pytest-homeassistant-custom-component)
+  Downloading requests_mock-1.12.1-py2.py3-none-any.whl.metadata (4.1 kB)
+Collecting respx==0.21.1 (from pytest-homeassistant-custom-component)
+  Downloading respx-0.21.1-py2.py3-none-any.whl.metadata (4.1 kB)
+Collecting syrupy==4.8.0 (from pytest-homeassistant-custom-component)
+  Downloading syrupy-4.8.0-py3-none-any.whl.metadata (36 kB)
+Collecting tqdm==4.66.5 (from pytest-homeassistant-custom-component)
+  Downloading tqdm-4.66.5-py3-none-any.whl.metadata (57 kB)
+Collecting paho-mqtt==1.6.1 (from pytest-homeassistant-custom-component)
+  Downloading paho-mqtt-1.6.1.tar.gz (99 kB)
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Collecting numpy==2.2.0 (from pytest-homeassistant-custom-component)
+  Downloading numpy-2.2.0-cp312-cp312-macosx_14_0_arm64.whl.metadata (62 kB)
+Requirement already satisfied: python-dateutil>=2.7 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from freezegun==1.5.1->pytest-homeassistant-custom-component) (2.9.0.post0)
+Collecting boolean.py>=4.0 (from license-expression==30.4.0->pytest-homeassistant-custom-component)
+  Downloading boolean_py-5.0-py3-none-any.whl.metadata (2.3 kB)
+Collecting packaging>=23.1 (from homeassistant)
+  Using cached packaging-25.0-py3-none-any.whl.metadata (3.3 kB)
+Requirement already satisfied: pip>=24.2 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from pipdeptree==2.23.4->pytest-homeassistant-custom-component) (25.0)
+Requirement already satisfied: annotated-types>=0.6.0 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from pydantic==2.10.4->pytest-homeassistant-custom-component) (0.7.0)
+Collecting pydantic-core==2.27.2 (from pydantic==2.10.4->pytest-homeassistant-custom-component)
+  Downloading pydantic_core-2.27.2-cp312-cp312-macosx_11_0_arm64.whl.metadata (6.6 kB)
+Requirement already satisfied: iniconfig in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from pytest==8.3.4->pytest-homeassistant-custom-component) (2.0.0)
+Requirement already satisfied: pluggy<2,>=1.5 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from pytest==8.3.4->pytest-homeassistant-custom-component) (1.5.0)
+Collecting termcolor>=2.1.0 (from pytest-sugar==1.0.0->pytest-homeassistant-custom-component)
+  Downloading termcolor-3.2.0-py3-none-any.whl.metadata (6.4 kB)
+Collecting execnet>=2.1 (from pytest-xdist==3.6.1->pytest-homeassistant-custom-component)
+  Downloading execnet-2.1.2-py3-none-any.whl.metadata (2.9 kB)
+Requirement already satisfied: pycparser in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from cffi>=1.12->cryptography==44.0.0->homeassistant) (2.22)
+Collecting bleak>=1.0.1 (from habluetooth>=3.0->home-assistant-bluetooth==1.13.0->homeassistant)
+  Using cached bleak-1.1.1-py3-none-any.whl.metadata (5.1 kB)
+Collecting bleak-retry-connector>=4.2.0 (from habluetooth>=3.0->home-assistant-bluetooth==1.13.0->homeassistant)
+  Downloading bleak_retry_connector-4.4.4-py3-none-any.whl.metadata (7.3 kB)
+Collecting bluetooth-adapters>=2.1.0 (from habluetooth>=3.0->home-assistant-bluetooth==1.13.0->homeassistant)
+  Using cached bluetooth_adapters-2.1.1-py3-none-any.whl.metadata (5.3 kB)
+Collecting bluetooth-auto-recovery>=1.5.1 (from habluetooth>=3.0->home-assistant-bluetooth==1.13.0->homeassistant)
+  Using cached bluetooth_auto_recovery-1.5.3-py3-none-any.whl.metadata (5.5 kB)
+Collecting bluetooth-data-tools>=1.28.0 (from habluetooth>=3.0->home-assistant-bluetooth==1.13.0->homeassistant)
+  Using cached bluetooth_data_tools-1.28.4-cp312-cp312-macosx_11_0_arm64.whl.metadata (5.2 kB)
+Collecting btsocket>=0.3.0 (from habluetooth>=3.0->home-assistant-bluetooth==1.13.0->homeassistant)
+  Using cached btsocket-0.3.0-py2.py3-none-any.whl.metadata (7.0 kB)
+Collecting typing-extensions<5.0,>=4.12.2 (from homeassistant)
+  Using cached typing_extensions-4.15.0-py3-none-any.whl.metadata (3.3 kB)
+Requirement already satisfied: six>=1.5 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from python-dateutil>=2.7->freezegun==1.5.1->pytest-homeassistant-custom-component) (1.17.0)
+Collecting pyobjc-core>=10.3 (from bleak>=1.0.1->habluetooth>=3.0->home-assistant-bluetooth==1.13.0->homeassistant)
+  Using cached pyobjc_core-12.0-cp312-cp312-macosx_10_13_universal2.whl.metadata (2.8 kB)
+Collecting pyobjc-framework-CoreBluetooth>=10.3 (from bleak>=1.0.1->habluetooth>=3.0->home-assistant-bluetooth==1.13.0->homeassistant)
+  Using cached pyobjc_framework_corebluetooth-12.0-cp312-cp312-macosx_10_13_universal2.whl.metadata (2.6 kB)
+Collecting pyobjc-framework-libdispatch>=10.3 (from bleak>=1.0.1->habluetooth>=3.0->home-assistant-bluetooth==1.13.0->homeassistant)
+  Using cached pyobjc_framework_libdispatch-12.0-cp312-cp312-macosx_10_13_universal2.whl.metadata (2.5 kB)
+Collecting aiooui>=0.1.1 (from bluetooth-adapters>=2.1.0->habluetooth>=3.0->home-assistant-bluetooth==1.13.0->homeassistant)
+  Using cached aiooui-0.1.9-py3-none-any.whl.metadata (4.1 kB)
+Collecting uart-devices>=0.1.0 (from bluetooth-adapters>=2.1.0->habluetooth>=3.0->home-assistant-bluetooth==1.13.0->homeassistant)
+  Using cached uart_devices-0.1.1-py3-none-any.whl.metadata (4.9 kB)
+Collecting usb-devices>=0.4.5 (from bluetooth-adapters>=2.1.0->habluetooth>=3.0->home-assistant-bluetooth==1.13.0->homeassistant)
+  Using cached usb_devices-0.4.5-py3-none-any.whl.metadata (5.3 kB)
+Collecting PyRIC>=0.1.6.3 (from bluetooth-auto-recovery>=1.5.1->habluetooth>=3.0->home-assistant-bluetooth==1.13.0->homeassistant)
+  Using cached pyric-0.1.6.3-py2.py3-none-any.whl
+Requirement already satisfied: botocore<1.36.0,>=1.35.53 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from boto3>=1.10.49->pycognito==2024.5.1->hass-nabucasa==0.87.0->homeassistant) (1.35.99)
+Requirement already satisfied: jmespath<2.0.0,>=0.7.1 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from boto3>=1.10.49->pycognito==2024.5.1->hass-nabucasa==0.87.0->homeassistant) (1.0.1)
+Requirement already satisfied: s3transfer<0.11.0,>=0.10.0 in /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages (from boto3>=1.10.49->pycognito==2024.5.1->hass-nabucasa==0.87.0->homeassistant) (0.10.4)
+Collecting pyobjc-framework-Cocoa>=12.0 (from pyobjc-framework-CoreBluetooth>=10.3->bleak>=1.0.1->habluetooth>=3.0->home-assistant-bluetooth==1.13.0->homeassistant)
+  Using cached pyobjc_framework_cocoa-12.0-cp312-cp312-macosx_10_13_universal2.whl.metadata (2.6 kB)
+Downloading homeassistant-2025.1.4-py3-none-any.whl (40.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 40.0/40.0 MB 9.1 MB/s eta 0:00:00
+Using cached aiodns-3.2.0-py3-none-any.whl (5.7 kB)
+Downloading aiohasupervisor-0.2.2b5-py3-none-any.whl (36 kB)
+Downloading aiohttp-3.11.11-cp312-cp312-macosx_11_0_arm64.whl (455 kB)
+Using cached aiohttp_cors-0.7.0-py3-none-any.whl (27 kB)
+Downloading aiohttp_fast_zlib-0.2.0-py3-none-any.whl (8.4 kB)
+Using cached aiozoneinfo-0.2.1-py3-none-any.whl (8.0 kB)
+Using cached astral-2.2-py2.py3-none-any.whl (30 kB)
+Using cached async_interrupt-1.2.0-py3-none-any.whl (8.9 kB)
+Using cached atomicwrites_homeassistant-1.4.1-py2.py3-none-any.whl (7.1 kB)
+Downloading attrs-24.2.0-py3-none-any.whl (63 kB)
+Using cached awesomeversion-24.6.0-py3-none-any.whl (14 kB)
+Downloading ciso8601-2.3.2-cp312-cp312-macosx_11_0_arm64.whl (15 kB)
+Using cached cronsim-2.6-py3-none-any.whl (13 kB)
+Using cached fnv_hash_fast-1.0.2-cp312-cp312-macosx_14_0_arm64.whl (65 kB)
+Downloading hass_nabucasa-0.87.0-py3-none-any.whl (56 kB)
+Downloading home_assistant_bluetooth-1.13.0-py3-none-any.whl (7.9 kB)
+Using cached httpx-0.27.2-py3-none-any.whl (76 kB)
+Using cached ifaddr-0.2.0-py3-none-any.whl (12 kB)
+Using cached lru_dict-1.3.0-cp312-cp312-macosx_11_0_arm64.whl (11 kB)
+Downloading orjson-3.10.12-cp312-cp312-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl (248 kB)
+Downloading pillow-11.0.0-cp312-cp312-macosx_11_0_arm64.whl (3.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.0/3.0 MB 34.9 MB/s eta 0:00:00
+Using cached psutil_home_assistant-0.0.1-py3-none-any.whl (6.3 kB)
+Downloading pyOpenSSL-24.3.0-py3-none-any.whl (56 kB)
+Using cached python_slugify-8.0.4-py2.py3-none-any.whl (10 kB)
+Downloading securetar-2024.11.0-py3-none-any.whl (9.4 kB)
+Downloading SQLAlchemy-2.0.36-cp312-cp312-macosx_11_0_arm64.whl (2.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 40.4 MB/s eta 0:00:00
+Using cached ulid_transform-1.0.2-cp312-cp312-macosx_14_0_arm64.whl (41 kB)
+Downloading uv-0.5.8-py3-none-macosx_11_0_arm64.whl (13.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 13.3/13.3 MB 4.0 MB/s eta 0:00:00
+Using cached voluptuous-0.15.2-py3-none-any.whl (31 kB)
+Using cached voluptuous_openapi-0.0.5-py3-none-any.whl (8.6 kB)
+Using cached voluptuous_serialize-2.6.0-py3-none-any.whl (6.8 kB)
+Using cached webrtc_models-0.3.0-py3-none-any.whl (7.5 kB)
+Downloading acme-3.0.1-py3-none-any.whl (95 kB)
+Using cached pycognito-2024.5.1-py3-none-any.whl (26 kB)
+Using cached snitun-0.39.1-py3-none-any.whl (39 kB)
+Downloading pytest_homeassistant_custom_component-0.13.205-py3-none-any.whl (60 kB)
+Downloading coverage-7.6.8-cp312-cp312-macosx_11_0_arm64.whl (207 kB)
+Downloading freezegun-1.5.1-py3-none-any.whl (17 kB)
+Downloading license_expression-30.4.0-py3-none-any.whl (110 kB)
+Downloading numpy-2.2.0-cp312-cp312-macosx_14_0_arm64.whl (5.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.1/5.1 MB 5.8 MB/s eta 0:00:00
+Downloading pipdeptree-2.23.4-py3-none-any.whl (32 kB)
+Downloading pydantic-2.10.4-py3-none-any.whl (431 kB)
+Downloading pylint_per_file_ignores-1.3.2-py3-none-any.whl (4.7 kB)
+Downloading pytest-8.3.4-py3-none-any.whl (343 kB)
+Downloading pytest_aiohttp-1.0.5-py3-none-any.whl (8.5 kB)
+Downloading pytest_asyncio-0.24.0-py3-none-any.whl (18 kB)
+Downloading pytest_cov-6.0.0-py3-none-any.whl (22 kB)
+Downloading pytest_freezer-0.4.8-py3-none-any.whl (3.2 kB)
+Downloading pytest_github_actions_annotate_failures-0.2.0-py3-none-any.whl (5.5 kB)
+Downloading pytest_picked-0.5.0-py3-none-any.whl (6.6 kB)
+Downloading pytest_socket-0.7.0-py3-none-any.whl (6.8 kB)
+Downloading pytest_sugar-1.0.0-py3-none-any.whl (10 kB)
+Downloading pytest_timeout-2.3.1-py3-none-any.whl (14 kB)
+Downloading pytest_unordered-0.6.1-py3-none-any.whl (6.0 kB)
+Downloading pytest_xdist-3.6.1-py3-none-any.whl (46 kB)
+Downloading requests_mock-1.12.1-py2.py3-none-any.whl (27 kB)
+Downloading respx-0.21.1-py2.py3-none-any.whl (25 kB)
+Downloading syrupy-4.8.0-py3-none-any.whl (49 kB)
+Downloading tqdm-4.66.5-py3-none-any.whl (78 kB)
+Downloading pydantic_core-2.27.2-cp312-cp312-macosx_11_0_arm64.whl (1.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 48.8 MB/s eta 0:00:00
+Using cached packaging-25.0-py3-none-any.whl (66 kB)
+Using cached urllib3-1.26.20-py2.py3-none-any.whl (144 kB)
+Downloading boolean_py-5.0-py3-none-any.whl (26 kB)
+Downloading execnet-2.1.2-py3-none-any.whl (40 kB)
+Using cached habluetooth-5.7.0-cp312-cp312-macosx_11_0_arm64.whl (582 kB)
+Using cached mashumaro-3.17-py3-none-any.whl (94 kB)
+Using cached typing_extensions-4.15.0-py3-none-any.whl (44 kB)
+Using cached pycares-4.11.0-cp312-cp312-macosx_11_0_arm64.whl (141 kB)
+Downloading termcolor-3.2.0-py3-none-any.whl (7.7 kB)
+Using cached text_unidecode-1.3-py2.py3-none-any.whl (78 kB)
+Using cached bleak-1.1.1-py3-none-any.whl (136 kB)
+Downloading bleak_retry_connector-4.4.4-py3-none-any.whl (18 kB)
+Using cached bluetooth_adapters-2.1.1-py3-none-any.whl (20 kB)
+Using cached bluetooth_auto_recovery-1.5.3-py3-none-any.whl (11 kB)
+Using cached bluetooth_data_tools-1.28.4-cp312-cp312-macosx_11_0_arm64.whl (386 kB)
+Using cached btsocket-0.3.0-py2.py3-none-any.whl (14 kB)
+Using cached envs-1.4-py3-none-any.whl (10 kB)
+Using cached josepy-1.15.0-py3-none-any.whl (32 kB)
+Using cached pyrfc3339-2.1.0-py3-none-any.whl (6.8 kB)
+Using cached aiooui-0.1.9-py3-none-any.whl (367 kB)
+Using cached pyobjc_core-12.0-cp312-cp312-macosx_10_13_universal2.whl (681 kB)
+Using cached pyobjc_framework_corebluetooth-12.0-cp312-cp312-macosx_10_13_universal2.whl (13 kB)
+Using cached pyobjc_framework_libdispatch-12.0-cp312-cp312-macosx_10_13_universal2.whl (15 kB)
+Using cached uart_devices-0.1.1-py3-none-any.whl (4.8 kB)
+Using cached usb_devices-0.4.5-py3-none-any.whl (5.3 kB)
+Using cached pyobjc_framework_cocoa-12.0-cp312-cp312-macosx_10_13_universal2.whl (384 kB)
+Building wheels for collected packages: mock-open, paho-mqtt
+  Building wheel for mock-open (setup.py): started
+  Building wheel for mock-open (setup.py): finished with status 'done'
+  Created wheel for mock-open: filename=mock_open-1.4.0-py3-none-any.whl size=14560 sha256=ddd4e1f5cc7bf3f5213439fd15f32a0a4edcf54b90895290b8a1d90641153edc
+  Stored in directory: /Users/jason/Library/Caches/pip/wheels/2d/cb/42/30f8e7ef326ebeeaac3942801463bafb76fb6573e8327eab99
+  Building wheel for paho-mqtt (setup.py): started
+  Building wheel for paho-mqtt (setup.py): finished with status 'done'
+  Created wheel for paho-mqtt: filename=paho_mqtt-1.6.1-py3-none-any.whl size=62119 sha256=fff0f21d86c7775c10576d56656912905667cf4edd39f0aa1707f51cf535fe8e
+  Stored in directory: /Users/jason/Library/Caches/pip/wheels/23/d5/af/1f3cbcc350dec9d8e95040f388e0163d132eff0c9a453db659
+Successfully built mock-open paho-mqtt
+Installing collected packages: text-unidecode, PyRIC, paho-mqtt, mock-open, ifaddr, fnvhash, ciso8601, btsocket, boolean.py, voluptuous, uv, usb-devices, urllib3, ulid-transform, uart-devices, typing-extensions, tqdm, termcolor, python-slugify, pyrfc3339, pyobjc-core, pylint-per-file-ignores, psutil-home-assistant, Pillow, packaging, orjson, numpy, lru-dict, license-expression, fnv-hash-fast, execnet, envs, cronsim, coverage, awesomeversion, attrs, atomicwrites-homeassistant, async-interrupt, astral, aiozoneinfo, aiooui, voluptuous-serialize, voluptuous-openapi, SQLAlchemy, pytest, pyobjc-framework-Cocoa, pydantic-core, pycares, pipdeptree, mashumaro, freezegun, aiohttp, webrtc-models, syrupy, snitun, securetar, requests-mock, pytest-xdist, pytest-unordered, pytest-timeout, pytest-sugar, pytest-socket, pytest-picked, pytest-github-actions-annotate-failures, pytest-freezer, pytest-cov, pytest-asyncio, pyOpenSSL, pyobjc-framework-libdispatch, pyobjc-framework-CoreBluetooth, pydantic, httpx, bluetooth-data-tools, aiohttp-fast-zlib, aiohttp-cors, aiohasupervisor, aiodns, respx, pytest-aiohttp, josepy, bleak, pycognito, bluetooth-adapters, bleak-retry-connector, acme, hass-nabucasa, bluetooth-auto-recovery, habluetooth, home-assistant-bluetooth, homeassistant, pytest-homeassistant-custom-component
+  Attempting uninstall: urllib3
+    Found existing installation: urllib3 2.3.0
+    Uninstalling urllib3-2.3.0:
+      Successfully uninstalled urllib3-2.3.0
+  Attempting uninstall: typing-extensions
+    Found existing installation: typing_extensions 4.12.2
+    Uninstalling typing_extensions-4.12.2:
+      Successfully uninstalled typing_extensions-4.12.2
+  Attempting uninstall: tqdm
+    Found existing installation: tqdm 4.67.1
+    Uninstalling tqdm-4.67.1:
+      Successfully uninstalled tqdm-4.67.1
+  Attempting uninstall: Pillow
+    Found existing installation: pillow 11.1.0
+    Uninstalling pillow-11.1.0:
+      Successfully uninstalled pillow-11.1.0
+  Attempting uninstall: packaging
+    Found existing installation: packaging 23.2
+    Uninstalling packaging-23.2:
+      Successfully uninstalled packaging-23.2
+  Attempting uninstall: orjson
+    Found existing installation: orjson 3.10.15
+    Uninstalling orjson-3.10.15:
+      Successfully uninstalled orjson-3.10.15
+  Attempting uninstall: numpy
+    Found existing installation: numpy 1.26.4
+    Uninstalling numpy-1.26.4:
+      Successfully uninstalled numpy-1.26.4
+  Attempting uninstall: coverage
+    Found existing installation: coverage 7.11.0
+    Uninstalling coverage-7.11.0:
+      Successfully uninstalled coverage-7.11.0
+  Attempting uninstall: attrs
+    Found existing installation: attrs 25.1.0
+    Uninstalling attrs-25.1.0:
+      Successfully uninstalled attrs-25.1.0
+  Attempting uninstall: SQLAlchemy
+    Found existing installation: SQLAlchemy 2.0.32
+    Uninstalling SQLAlchemy-2.0.32:
+      Successfully uninstalled SQLAlchemy-2.0.32
+  Attempting uninstall: pytest
+    Found existing installation: pytest 8.4.2
+    Uninstalling pytest-8.4.2:
+      Successfully uninstalled pytest-8.4.2
+  Attempting uninstall: pydantic-core
+    Found existing installation: pydantic_core 2.23.4
+    Uninstalling pydantic_core-2.23.4:
+      Successfully uninstalled pydantic_core-2.23.4
+  Attempting uninstall: aiohttp
+    Found existing installation: aiohttp 3.11.8
+    Uninstalling aiohttp-3.11.8:
+      Successfully uninstalled aiohttp-3.11.8
+  Attempting uninstall: pytest-cov
+    Found existing installation: pytest-cov 7.0.0
+    Uninstalling pytest-cov-7.0.0:
+      Successfully uninstalled pytest-cov-7.0.0
+  Attempting uninstall: pytest-asyncio
+    Found existing installation: pytest-asyncio 1.2.0
+    Uninstalling pytest-asyncio-1.2.0:
+      Successfully uninstalled pytest-asyncio-1.2.0
+  Attempting uninstall: pydantic
+    Found existing installation: pydantic 2.9.2
+    Uninstalling pydantic-2.9.2:
+      Successfully uninstalled pydantic-2.9.2
+  Attempting uninstall: httpx
+    Found existing installation: httpx 0.28.1
+    Uninstalling httpx-0.28.1:
+      Successfully uninstalled httpx-0.28.1
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+rapidocr-onnxruntime 1.3.24 requires numpy<2.0.0,>=1.19.5, but you have numpy 2.2.0 which is incompatible.
+langchain-community 0.3.7 requires numpy<2.0.0,>=1.26.0; python_version >= "3.12", but you have numpy 2.2.0 which is incompatible.
+langchain-community 0.3.7 requires SQLAlchemy<2.0.36,>=1.4, but you have sqlalchemy 2.0.36 which is incompatible.
+langchain-core 0.3.33 requires packaging<25,>=23.2, but you have packaging 25.0 which is incompatible.
+open-webui 0.5.7 requires aiohttp==3.11.8, but you have aiohttp 3.11.11 which is incompatible.
+open-webui 0.5.7 requires pydantic==2.9.2, but you have pydantic 2.10.4 which is incompatible.
+open-webui 0.5.7 requires sqlalchemy==2.0.32, but you have sqlalchemy 2.0.36 which is incompatible.
+unstructured-client 0.28.1 requires pydantic<2.10.0,>=2.9.2, but you have pydantic 2.10.4 which is incompatible.
+langfuse 2.44.0 requires packaging<24.0,>=23.2, but you have packaging 25.0 which is incompatible.
+unstructured 0.15.9 requires numpy<2, but you have numpy 2.2.0 which is incompatible.
+langchain 0.3.7 requires numpy<2.0.0,>=1.26.0; python_version >= "3.12", but you have numpy 2.2.0 which is incompatible.
+Successfully installed Pillow-11.0.0 PyRIC-0.1.6.3 SQLAlchemy-2.0.36 acme-3.0.1 aiodns-3.2.0 aiohasupervisor-0.2.2b5 aiohttp-3.11.11 aiohttp-cors-0.7.0 aiohttp-fast-zlib-0.2.0 aiooui-0.1.9 aiozoneinfo-0.2.1 astral-2.2 async-interrupt-1.2.0 atomicwrites-homeassistant-1.4.1 attrs-24.2.0 awesomeversion-24.6.0 bleak-1.1.1 bleak-retry-connector-4.4.4 bluetooth-adapters-2.1.1 bluetooth-auto-recovery-1.5.3 bluetooth-data-tools-1.28.4 boolean.py-5.0 btsocket-0.3.0 ciso8601-2.3.2 coverage-7.6.8 cronsim-2.6 envs-1.4 execnet-2.1.2 fnv-hash-fast-1.0.2 fnvhash-0.1.0 freezegun-1.5.1 habluetooth-5.7.0 hass-nabucasa-0.87.0 home-assistant-bluetooth-1.13.0 homeassistant-2025.1.4 httpx-0.27.2 ifaddr-0.2.0 josepy-1.15.0 license-expression-30.4.0 lru-dict-1.3.0 mashumaro-3.17 mock-open-1.4.0 numpy-2.2.0 orjson-3.10.12 packaging-25.0 paho-mqtt-1.6.1 pipdeptree-2.23.4 psutil-home-assistant-0.0.1 pyOpenSSL-24.3.0 pycares-4.11.0 pycognito-2024.5.1 pydantic-2.10.4 pydantic-core-2.27.2 pylint-per-file-ignores-1.3.2 pyobjc-core-12.0 pyobjc-framework-Cocoa-12.0 pyobjc-framework-CoreBluetooth-12.0 pyobjc-framework-libdispatch-12.0 pyrfc3339-2.1.0 pytest-8.3.4 pytest-aiohttp-1.0.5 pytest-asyncio-0.24.0 pytest-cov-6.0.0 pytest-freezer-0.4.8 pytest-github-actions-annotate-failures-0.2.0 pytest-homeassistant-custom-component-0.13.205 pytest-picked-0.5.0 pytest-socket-0.7.0 pytest-sugar-1.0.0 pytest-timeout-2.3.1 pytest-unordered-0.6.1 pytest-xdist-3.6.1 python-slugify-8.0.4 requests-mock-1.12.1 respx-0.21.1 securetar-2024.11.0 snitun-0.39.1 syrupy-4.8.0 termcolor-3.2.0 text-unidecode-1.3 tqdm-4.66.5 typing-extensions-4.15.0 uart-devices-0.1.1 ulid-transform-1.0.2 urllib3-1.26.20 usb-devices-0.4.5 uv-0.5.8 voluptuous-0.15.2 voluptuous-openapi-0.0.5 voluptuous-serialize-2.6.0 webrtc-models-0.3.0
+
+[notice] A new release of pip is available: 25.0 -> 25.3
+[notice] To update, run: pip install --upgrade pip

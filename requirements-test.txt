@@ -1,12 +1,17 @@
 # Test dependencies for Alexa OAuth2 Integration
 # Install with: pip install -r requirements-test.txt
 
+# Home Assistant core (required for integration testing)
+homeassistant>=2024.10.0
+
 # Core testing
 pytest==8.4.2
 pytest-cov==7.0.0
 pytest-asyncio==1.2.0
+pytest-homeassistant-custom-component>=0.13.0
 
 # Required production dependencies
+PyJWT>=2.8.0
 cryptography>=43.0.0
 pyyaml>=6.0.0
 

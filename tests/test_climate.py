@@ -9,7 +9,7 @@ Test Coverage:
 """
 
 import pytest
-from unittest.mock import AsyncMock, MagicMock
+from unittest.mock import AsyncMock, MagicMock, patch
 from homeassistant.components.climate import HVACMode, HVACAction
 from homeassistant.core import HomeAssistant
 
@@ -229,7 +229,8 @@ class TestAlexaClimateCommands:
     async def test_set_hvac_mode_heat(self, mock_coordinator, thermostat_device):
         """Test setting HVAC mode to heat."""
         entity = AlexaClimateEntity(mock_coordinator, thermostat_device)
-        await entity.async_set_hvac_mode(HVACMode.HEAT)
+        with patch.object(entity, 'async_write_ha_state'):
+            await entity.async_set_hvac_mode(HVACMode.HEAT)
 
         assert thermostat_device.state["thermostatMode"] == "HEAT"
 
@@ -237,7 +238,8 @@ class TestAlexaClimateCommands:
     async def test_set_hvac_mode_cool(self, mock_coordinator, thermostat_device):
         """Test setting HVAC mode to cool."""
         entity = AlexaClimateEntity(mock_coordinator, thermostat_device)
-        await entity.async_set_hvac_mode(HVACMode.COOL)
+        with patch.object(entity, 'async_write_ha_state'):
+            await entity.async_set_hvac_mode(HVACMode.COOL)
 
         assert thermostat_device.state["thermostatMode"] == "COOL"
 
@@ -245,7 +247,8 @@ class TestAlexaClimateCommands:
     async def test_set_preset_mode(self, mock_coordinator, thermostat_device):
         """Test setting preset mode."""
         entity = AlexaClimateEntity(mock_coordinator, thermostat_device)
-        await entity.async_set_preset_mode("eco")
+        with patch.object(entity, 'async_write_ha_state'):
+            await entity.async_set_preset_mode("eco")
 
         assert thermostat_device.state["preset_mode"] == "eco"
         mock_coordinator.async_request_refresh.assert_called_once()
