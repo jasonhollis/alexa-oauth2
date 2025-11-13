@@ -2,7 +2,8 @@
 # Install with: pip install -r requirements-test.txt
 
 # Home Assistant core (required for integration testing)
-homeassistant>=2024.10.0
+# Updated to 2025.1.4+ for API compatibility with ConfigEntry requirements
+homeassistant>=2025.1.4
 
 # Core testing
 pytest==8.4.2
