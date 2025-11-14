@@ -2,7 +2,7 @@
 # Install with: pip install -r requirements-test.txt
 
 # Home Assistant core - upgraded for Python 3.12 compatibility
-homeassistant==2024.1.0
+homeassistant==2024.1.6
 
 # Core testing - all pinned for compatibility
 pytest>=7.4.0
