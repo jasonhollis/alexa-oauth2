@@ -6,10 +6,9 @@ homeassistant==2024.1.0
 
 # Core testing - all pinned for compatibility
 pytest>=7.4.0
-pytest-cov>=4.0.0
+pytest-cov==6.0.0
 pytest-asyncio>=0.21.0
 pytest-homeassistant-custom-component>=0.13.50
-coverage>=7.3.0
 
 # Required production dependencies (pinned for homeassistant 2024.1.0)
 # Note: pyyaml is installed as transitive dependency of homeassistant
