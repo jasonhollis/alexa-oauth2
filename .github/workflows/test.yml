@@ -28,8 +28,8 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel
           # Install PyYAML pre-built wheel to avoid compilation issues
           pip install 'PyYAML==6.0.1' --only-binary PyYAML
-          # Install remaining dependencies
-          pip install -r requirements-test.txt --ignore-installed PyYAML
+          # Install remaining dependencies (preserves PyYAML wheel)
+          pip install -r requirements-test.txt
           # Install compatibility dependencies
           pip install 'numpy>=2.3.0' 'josepy<2'
 
