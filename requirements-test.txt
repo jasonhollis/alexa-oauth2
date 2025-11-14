@@ -1,8 +1,8 @@
 # Test dependencies for Alexa OAuth2 Integration
 # Install with: pip install -r requirements-test.txt
 
-# Home Assistant core - pinned to what pytest-homeassistant-custom-component supports
-homeassistant==2023.7.0
+# Home Assistant core - upgraded for Python 3.12 compatibility
+homeassistant==2024.1.0
 
 # Core testing - all pinned for compatibility
 pytest==7.3.1
