@@ -11,9 +11,9 @@ pytest-asyncio==0.20.3
 pytest-homeassistant-custom-component==0.13.42
 coverage==7.2.4
 
-# Required production dependencies
+# Required production dependencies (pinned for homeassistant 2023.7.0)
 PyJWT==2.7.0
-cryptography>=43.0.0
+cryptography==41.0.1
 pyyaml>=6.0.0
 
 # Code quality tools
